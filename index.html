@@ -3,202 +3,391 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#0a0b12">
+<meta name="theme-color" content="#faf8f4">
 <title>Немецкие слова · DDeutschD1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap">
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
-  --bg:#0a0b12; --bg2:#12142099;
-  --card:rgba(255,255,255,.05); --brd:rgba(255,255,255,.09);
-  --txt:#edeef5; --dim:#8b90a8;
-  --gold:#f4c95d; --violet:#8b6cff;
-  --green:#35d6a4; --red:#ff6b6b;
-  --der:#6ea8ff; --die:#ff7aa8; --das:#4ddba0;
+  --paper:#faf8f4; --ink:#232028; --ink2:#4e4a5a; --dim:#9a96a6; --line:#e9e7ef;
+  --blue:#2b4a8b; --blue-s:#eef1f8;
+  --red:#d6453c; --red-s:#fdeceb; --marg:#e8938c;
+  --green:#2e8b6b; --green-s:#e9f5f0;
+  --gold:#d99a1f;
+  --der:#d6453c; --die:#b0398a; --das:#2f7d5b;
+  --grid:rgba(43,74,139,.10);
+  --serif:Lora,Georgia,"Times New Roman",serif;
+  --sh1:0 1px 1px rgba(35,32,40,.06),0 10px 22px rgba(35,32,40,.07);
+  --sh2:0 1px 1px rgba(35,32,40,.06),0 8px 18px rgba(35,32,40,.06);
   --safe:env(safe-area-inset-bottom,0px);
 }
-html,body{margin:0;padding:0;height:100%}
+html,body{margin:0;padding:0;min-height:100%}
 body{
-  background:var(--bg); color:var(--txt);
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,"Helvetica Neue",sans-serif;
-  font-size:16px; line-height:1.45; overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
+  background:var(--paper); color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+  font-size:16px; line-height:1.45; overflow-x:hidden; -webkit-font-smoothing:antialiased;
 }
+/* лист в клетку — фирменный фон всего приложения */
 body::before{
-  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
-  background:
-    radial-gradient(680px 420px at 12% -8%, rgba(139,108,255,.22), transparent 62%),
-    radial-gradient(560px 380px at 92% 4%, rgba(244,201,93,.14), transparent 60%),
-    radial-gradient(700px 500px at 50% 108%, rgba(53,214,164,.10), transparent 60%);
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.55;
+  background-image:
+    linear-gradient(var(--grid) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;
 }
-#app{max-width:520px;margin:0 auto;padding:14px 16px calc(96px + var(--safe));}
+#app{max-width:520px;margin:0 auto;padding:14px 16px calc(96px + var(--safe))}
 #app.nopad{padding-bottom:calc(18px + var(--safe))}
 .hide{display:none!important}
 
+/* ---------- иконки ---------- */
+.i{display:inline-block;width:1em;height:1em;flex:none;line-height:0}
+.i svg{width:100%;height:100%;display:block}
+
 /* ---------- типографика ---------- */
-h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.02em}
-.h-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px 0 18px}
-.hello{font-size:13px;color:var(--dim);margin-bottom:2px}
-.h-top h1{font-size:22px}
+h1,h2,h3{margin:0;font-weight:700}
+.h-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:2px 0 15px}
+.hello{font-size:11.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--dim);font-weight:700;margin-bottom:4px}
+.h-top h1{font-family:var(--serif);font-size:26px;letter-spacing:-.5px}
 .dim{color:var(--dim)}
 .tiny{font-size:12px;color:var(--dim)}
+.sec{font-size:10.5px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--dim);margin:22px 0 13px 3px}
 
 /* ---------- карточки ---------- */
 .card{
-  background:var(--card); border:1px solid var(--brd); border-radius:20px;
-  padding:16px; margin-bottom:12px; position:relative; overflow:hidden;
+  background:#fff;border-radius:10px;padding:16px;margin-bottom:12px;
+  position:relative;overflow:hidden;box-shadow:var(--sh1);
   animation:up .38s cubic-bezier(.2,.8,.3,1) both;
 }
 @keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 .card.d1{animation-delay:.04s}.card.d2{animation-delay:.08s}.card.d3{animation-delay:.12s}.card.d4{animation-delay:.16s}
 
 /* ---------- серия ---------- */
-.streak{
-  display:flex;align-items:center;gap:7px;padding:8px 13px;border-radius:100px;
-  background:linear-gradient(135deg,rgba(244,201,93,.20),rgba(255,107,107,.14));
-  border:1px solid rgba(244,201,93,.34);white-space:nowrap;
-}
-.streak b{font-size:17px;color:var(--gold);font-variant-numeric:tabular-nums}
-.streak .fl{font-size:18px;filter:drop-shadow(0 0 8px rgba(244,201,93,.75));animation:fl 2.4s ease-in-out infinite}
-@keyframes fl{0%,100%{transform:scale(1)}50%{transform:scale(1.16)}}
+.streak{display:flex;align-items:center;gap:6px;padding:7px 13px;border-radius:8px;
+  background:#fff;box-shadow:0 6px 14px rgba(35,32,40,.08);white-space:nowrap}
+.streak .i{font-size:16px;color:var(--red);animation:fl 2.4s ease-in-out infinite}
+@keyframes fl{0%,100%{transform:scale(1)}50%{transform:scale(1.14)}}
+.streak b{font-size:16px;font-weight:700;font-variant-numeric:tabular-nums}
 
-/* ---------- слово дня ---------- */
-.wotd{
-  background:linear-gradient(158deg,rgba(139,108,255,.24),rgba(255,255,255,.04) 58%);
-  border-color:rgba(139,108,255,.35);
-}
-.wotd .lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700}
-.wotd .de{font-size:33px;font-weight:700;letter-spacing:-.03em;margin:9px 0 3px;line-height:1.12}
-.wotd .ru{font-size:16px;color:var(--dim)}
-.wotd .ex{margin-top:12px;padding-top:12px;border-top:1px solid var(--brd);font-size:14px;font-style:italic;color:#c9cce0}
+/* ---------- слово дня: лист в клетку с полями ---------- */
+.wotd{padding:18px 19px 17px 46px}
+.wotd::before{content:"";position:absolute;inset:0;background-image:
+  linear-gradient(rgba(43,74,139,.09) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(43,74,139,.09) 1px,transparent 1px);
+  background-size:24px 24px}
+.wotd::after{content:"";position:absolute;left:31px;top:0;bottom:0;width:1.5px;background:var(--marg)}
+.wotd>*{position:relative}
+.lab{font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--blue);font-weight:700}
+.wotd .de{font-family:var(--serif);font-size:34px;font-weight:700;letter-spacing:-1.1px;
+  line-height:1.08;margin-top:9px;overflow-wrap:break-word}
+.wotd .de.m{font-size:26px;letter-spacing:-.8px}
+.wotd .de.s{font-size:21px;letter-spacing:-.5px}
+.wotd .ru{font-family:var(--serif);font-style:italic;font-size:17px;color:#7c7889;margin-top:4px}
+.hr{height:1px;background:rgba(43,74,139,.16);margin:14px 0 12px}
+.wotd .ex{font-size:15px;color:var(--ink2);line-height:1.4}
 .art-der{color:var(--der)}.art-die{color:var(--die)}.art-das{color:var(--das)}
 
 /* ---------- кнопки ---------- */
-.btn{
-  display:flex;align-items:center;justify-content:center;gap:8px;width:100%;
-  padding:15px 18px;border:0;border-radius:16px;font:inherit;font-weight:600;font-size:16px;
-  color:#151626;background:linear-gradient(135deg,#f7d271,#f0b93f);cursor:pointer;
-  transition:transform .12s ease,filter .12s ease;
-}
-.btn:active{transform:scale(.975);filter:brightness(.95)}
-.btn.ghost{background:var(--card);border:1px solid var(--brd);color:var(--txt)}
-.btn.sm{padding:11px 14px;font-size:14px;border-radius:13px;width:auto}
-
-/* ---------- уровни ---------- */
-.lvl{display:flex;align-items:center;gap:14px;cursor:pointer}
-.lvl .meta{flex:1;min-width:0}
-.lvl .nm{font-size:17px;font-weight:700}
-.lvl .sb{font-size:13px;color:var(--dim)}
-.lvl .chev{color:var(--dim);font-size:20px}
-.lvl.locked{opacity:.45}
-.ring{width:52px;height:52px;flex:none;transform:rotate(-90deg)}
-.ring circle{fill:none;stroke-width:4.5;stroke-linecap:round}
-.ring .bgc{stroke:rgba(255,255,255,.10)}
-.ring .fgc{stroke:var(--gold);transition:stroke-dashoffset .7s cubic-bezier(.2,.8,.3,1)}
-.ringwrap{position:relative;width:52px;height:52px;flex:none}
-.ringwrap span{position:absolute;inset:0;display:grid;place-items:center;font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}
-
-/* ---------- наборы слов ---------- */
-.pack{display:flex;align-items:center;gap:13px;padding:13px 14px;border-radius:16px;background:var(--card);border:1px solid var(--brd);margin-bottom:9px;cursor:pointer;transition:transform .12s}
-.pack:active{transform:scale(.985)}
-.pack .ic{width:40px;height:40px;flex:none;display:grid;place-items:center;border-radius:12px;background:rgba(255,255,255,.06);font-size:20px}
-.pack .tt{flex:1;min-width:0}
-.pack .tt b{display:block;font-size:15px;font-weight:600}
-.stars{display:flex;gap:3px;font-size:13px;letter-spacing:1px;color:var(--gold)}
-.st-off{color:#fff;opacity:.18}
-
-/* ---------- квиз ---------- */
-/* экран квиза: вопрос вверху, кнопки внизу — под большой палец */
-#v-quiz{display:flex;flex-direction:column;min-height:calc(100vh - 130px - var(--safe))}
-.qbar{height:5px;border-radius:100px;background:rgba(255,255,255,.09);overflow:hidden;margin-bottom:6px;flex:none}
-.qbar i{display:block;height:100%;border-radius:100px;background:linear-gradient(90deg,var(--violet),var(--gold));transition:width .35s ease}
-.qhead{display:flex;align-items:center;gap:10px;margin-bottom:14px;font-size:12px;color:var(--dim);flex:none}
-.qhead #q-num{flex:1;text-align:center;font-variant-numeric:tabular-nums}
-.qx{width:30px;height:30px;flex:none;border-radius:9px;border:1px solid var(--brd);background:var(--card);
-  color:var(--dim);font:inherit;font-size:13px;line-height:1;cursor:pointer;padding:0}
-.combo{color:var(--gold);font-weight:700;min-width:30px;text-align:right}
-.qask{text-align:center;padding:26px 16px;margin:auto 0;flex:none}
-#q-opts{flex:none}
-#q-hint{flex:none}
-.qask .tag{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--dim);font-weight:700}
-.qask .big{font-size:34px;font-weight:700;letter-spacing:-.03em;margin-top:10px;line-height:1.14;word-break:break-word}
-.qask .mid{font-size:22px;font-weight:600;margin-top:10px;line-height:1.3}
-.qask .sub{font-size:13px;color:var(--dim);margin-top:8px}
-.opts{display:flex;flex-direction:column;gap:9px}
-.opt{
-  width:100%;text-align:left;padding:15px 17px;border-radius:15px;
-  background:var(--card);border:1px solid var(--brd);color:var(--txt);
-  font:inherit;font-size:16px;cursor:pointer;transition:transform .1s,background .18s,border-color .18s;
-}
-.opt:active{transform:scale(.985)}
-.opt.ok{background:rgba(53,214,164,.17);border-color:var(--green);color:#b6f6de}
-.opt.no{background:rgba(255,107,107,.15);border-color:var(--red);color:#ffc7c7;animation:shake .34s}
-.opt.pale{opacity:.4}
-@keyframes shake{0%,100%{transform:translateX(0)}22%{transform:translateX(-7px)}55%{transform:translateX(6px)}80%{transform:translateX(-3px)}}
-.opts3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
-.opts3 .opt{text-align:center;font-size:19px;font-weight:700;padding:19px 6px}
-.hint{margin-bottom:12px;padding:13px 15px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid var(--brd);font-size:14px;line-height:1.5;animation:up .3s both}
-.hint b{color:var(--gold)}
-
-/* ---------- результат ---------- */
-.res{text-align:center;padding:30px 18px}
-.res .bigstars{font-size:44px;letter-spacing:6px;margin:6px 0 14px;line-height:1}
-.res .bigstars i{display:inline-block;font-style:normal;color:var(--gold);
-  filter:drop-shadow(0 0 14px rgba(244,201,93,.6));
-  animation:pop .45s cubic-bezier(.2,1.6,.4,1) both}
-.res .bigstars i.off{color:#fff;opacity:.16;filter:none}
-.res .bigstars i:nth-child(2){animation-delay:.13s}.res .bigstars i:nth-child(3){animation-delay:.26s}
-@keyframes pop{0%{transform:scale(.2);opacity:0}70%{transform:scale(1.18)}100%{transform:scale(1);opacity:1}}
-.res h2{font-size:24px;margin-bottom:6px}
-.score{font-size:15px;color:var(--dim)}
-.gain{margin-top:12px;display:inline-block;padding:7px 15px;border-radius:100px;font-size:14px;font-weight:700;
-  color:#b6f6de;background:rgba(53,214,164,.16);border:1px solid rgba(53,214,164,.34)}
-.tip{margin-top:14px;font-size:13px;line-height:1.5;color:var(--dim);text-align:left;
-  padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid var(--brd)}
-.newach{display:flex;align-items:center;gap:12px;padding:13px 15px;border-radius:16px;margin-top:12px;text-align:left;
-  background:linear-gradient(135deg,rgba(244,201,93,.20),rgba(139,108,255,.14));border:1px solid rgba(244,201,93,.35);animation:up .4s both}
-.newach .e{font-size:27px}
-.newach b{display:block;font-size:15px}
-
-/* ---------- награды ---------- */
-.agrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.ach{padding:15px 13px;border-radius:17px;background:var(--card);border:1px solid var(--brd);text-align:center}
-.ach .e{font-size:30px;line-height:1;margin-bottom:9px;display:block}
-.ach b{font-size:14px;display:block;margin-bottom:3px}
-.ach p{margin:0;font-size:11.5px;color:var(--dim);line-height:1.35}
-.ach.lock{opacity:.36}
-.ach.lock .e{filter:grayscale(1)}
-.ach.on{border-color:rgba(244,201,93,.42);background:linear-gradient(150deg,rgba(244,201,93,.14),var(--card))}
-
-/* ---------- магазин ---------- */
-.shop{background:linear-gradient(150deg,rgba(53,214,164,.16),rgba(255,255,255,.04));border-color:rgba(53,214,164,.32)}
-.shop .t{font-size:16px;font-weight:700;margin-bottom:5px}
-.shop p{margin:0 0 13px;font-size:14px;color:#c3c8dc;line-height:1.5}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;
+  padding:15px 18px;border:0;border-radius:10px;font:inherit;font-weight:700;font-size:15px;
+  color:#fff;background:var(--blue);cursor:pointer;box-shadow:0 9px 20px rgba(43,74,139,.28);
+  transition:transform .12s ease,filter .12s ease}
+.btn:active{transform:scale(.975);filter:brightness(.94)}
+.btn.ghost{background:#fff;color:var(--ink);box-shadow:var(--sh2)}
+.share{display:inline-flex;align-items:center;gap:7px;margin-top:14px;padding:8px 14px;
+  border-radius:8px;background:var(--blue-s);border:0;color:var(--blue);
+  font:inherit;font-size:12.5px;font-weight:700;cursor:pointer}
+.share .i{font-size:13px}
+.cta{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;
+  margin-bottom:12px;padding:16px 19px;border:0;border-radius:10px;background:var(--blue);color:#fff;
+  font:inherit;font-size:15px;font-weight:700;letter-spacing:-.2px;text-align:left;cursor:pointer;
+  box-shadow:0 9px 20px rgba(43,74,139,.28);transition:transform .12s;
+  animation:up .38s cubic-bezier(.2,.8,.3,1) .04s both}
+.cta:active{transform:scale(.985)}
+.cta .i{font-size:18px}
 
 /* ---------- статистика ---------- */
-.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center}
-.stats div b{display:block;font-size:21px;font-weight:700;font-variant-numeric:tabular-nums}
-.stats div span{font-size:11.5px;color:var(--dim)}
+.stats{display:flex;align-items:center;padding:14px 6px}
+.st{flex:1;text-align:center}
+.st b{display:block;font-family:var(--serif);font-size:23px;font-weight:700;letter-spacing:-.4px;font-variant-numeric:tabular-nums}
+.st span{display:block;font-size:11.5px;color:var(--dim);margin-top:3px}
+.stx{width:1px;height:28px;background:rgba(43,74,139,.14)}
+
+/* ---------- уровни ---------- */
+.lvl{display:flex;align-items:center;gap:13px;padding:18px 15px;cursor:pointer;transition:transform .12s}
+.lvl:active{transform:scale(.99)}
+.lvl .meta{flex:1;min-width:0}
+.lvl .nm{font-size:16.5px;font-weight:700;letter-spacing:-.3px}
+.lvl .sb{font-size:12.5px;color:var(--dim);margin-top:2px}
+.lvl.locked{cursor:default}
+.lvl.locked .nm{color:#6b6779}
+.chev{font-size:16px;color:#c8c4d2}
+.ringwrap{position:relative;flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center}
+.ringwrap::before{content:"";position:absolute;inset:5px;border-radius:50%;background:#fff}
+.ringwrap span{position:relative;z-index:1;font-size:11.5px;font-weight:700;color:var(--blue);font-variant-numeric:tabular-nums}
+.ringwrap.big{width:54px;height:54px}
+.ringwrap.big::before{inset:6px}
+.ringwrap.big span{font-size:13.5px}
+.mark{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:#f1f0f5;color:#bdb9c8}
+.mark .i{font-size:20px}
+
+/* ---------- наборы слов ---------- */
+.pack{display:flex;align-items:center;gap:13px;padding:13px 14px;border-radius:10px;background:#fff;
+  margin-bottom:10px;cursor:pointer;box-shadow:var(--sh2);transition:transform .12s;
+  animation:up .34s cubic-bezier(.2,.8,.3,1) both}
+.pack:active{transform:scale(.985)}
+.pack .ic{width:40px;height:40px;flex:none;display:grid;place-items:center;border-radius:9px;
+  background:var(--blue-s);color:var(--blue)}
+.i2{display:inline-block;line-height:0;width:22px;height:22px}
+.i2 svg{width:100%;height:100%;display:block}
+.pack .tt{flex:1;min-width:0}
+.pack .tt b{display:block;font-size:15px;font-weight:700}
+.stars{display:flex;gap:3.5px;color:var(--gold)}
+.stars i{width:13px;height:13px;line-height:0;display:block}
+.stars i svg{width:100%;height:100%;display:block}
+.stars i.st-off{color:#ddd9e4}
+
+/* ---------- квиз ---------- */
+#v-quiz{display:flex;flex-direction:column;min-height:calc(100vh - 34px - var(--safe))}
+.qhead{display:flex;align-items:center;gap:10px;margin-bottom:14px;font-size:12px;color:var(--dim);flex:none}
+.qhead #q-num{flex:1;text-align:center;font-variant-numeric:tabular-nums}
+.qx{width:30px;height:30px;flex:none;border-radius:8px;border:0;background:#fff;color:var(--dim);
+  box-shadow:0 1px 1px rgba(35,32,40,.06),0 5px 12px rgba(35,32,40,.06);
+  display:grid;place-items:center;cursor:pointer;padding:0}
+.qx .i{font-size:13px}
+.combo{color:var(--red);font-weight:700;min-width:30px;text-align:right}
+/* лист в клетку и в вопросе — тот же фирменный приём */
+.qask{flex:0 0 auto;min-height:40vh;display:flex;flex-direction:column;
+  text-align:left;padding:26px 18px 22px 46px;margin:0 0 14px}
+.qtext{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;justify-content:center}
+/* линейка раунда прямо на листе: видно, что уже отвечено и где ошибся */
+.qdots{flex:none;display:flex;gap:5px;margin-top:20px}
+.qdots i{flex:1 1 0;height:8px;border-radius:4px;background:#e4e2ec;
+  transition:background .28s ease,transform .28s cubic-bezier(.2,1.6,.4,1)}
+.qdots i.ok{background:var(--green)}
+.qdots i.no{background:var(--red)}
+.qdots i.now{background:var(--blue);transform:scaleY(1.6)}
+.qask::before{content:"";position:absolute;inset:0;background-image:
+  linear-gradient(rgba(43,74,139,.09) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(43,74,139,.09) 1px,transparent 1px);
+  background-size:24px 24px}
+.qask::after{content:"";position:absolute;left:31px;top:0;bottom:0;width:1.5px;background:var(--marg)}
+.qask>*{position:relative}
+.qask .tag{font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--blue);font-weight:700}
+.qask .big{font-family:var(--serif);font-size:36px;font-weight:700;letter-spacing:-1.2px;margin-top:11px;line-height:1.1;overflow-wrap:break-word}
+.qask .big.m{font-size:25px;letter-spacing:-.7px}
+.qask .big.s{font-size:20px;letter-spacing:-.4px}
+.qask .mid{font-family:var(--serif);font-size:21px;font-weight:600;margin-top:10px;line-height:1.35}
+.qask .sub{font-family:var(--serif);font-style:italic;font-size:15px;color:#7c7889;margin-top:6px}
+#q-hint{flex:none}
+#q-opts,#tq-opts{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;justify-content:flex-end}
+.opts{display:flex;flex-direction:column;gap:10px;flex:1 1 auto;justify-content:flex-end}
+.opt{width:100%;text-align:left;padding:14px 17px;border-radius:10px;background:#fff;
+  flex:1 1 0;min-height:58px;max-height:84px;display:flex;align-items:center;
+  border:1.5px solid transparent;color:var(--ink);font:inherit;font-size:16px;cursor:pointer;
+  box-shadow:var(--sh2);transition:transform .1s,background .18s,border-color .18s,color .18s}
+.opt:active{transform:scale(.985)}
+.opt.ok{background:var(--green-s);border-color:var(--green);color:#1d6b50}
+.opt.no{background:var(--red-s);border-color:var(--red);color:#a83229;animation:shake .34s}
+.opt.pale{opacity:.42;box-shadow:none}
+@keyframes shake{0%,100%{transform:translateX(0)}22%{transform:translateX(-7px)}55%{transform:translateX(6px)}80%{transform:translateX(-3px)}}
+.opts3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+.opts3 .opt{justify-content:center;text-align:center;font-family:var(--serif);font-size:19px;
+  font-weight:700;padding:19px 6px;max-height:none}
+/* разбор ошибки — красная пометка на полях */
+.hint{position:relative;margin-bottom:12px;padding:13px 15px 13px 18px;border-radius:10px;background:#fff;
+  font-size:14px;line-height:1.5;box-shadow:var(--sh2);animation:up .3s both}
+.hint::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3.5px;background:var(--marg)}
+.hint b{font-family:var(--serif);font-size:16.5px}
+.hint .ex{display:block;margin-top:5px;font-family:var(--serif);font-style:italic;font-size:13.5px;color:#7c7889}
+.hint .hl{display:block;font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--red);font-weight:700;margin-bottom:6px}
+/* разбор ошибки держится на экране, пока человек сам не нажмёт «Дальше»:
+   лист с вопросом ужимается и освобождает место под правильный перевод */
+.qask{transition:min-height .34s cubic-bezier(.2,.8,.3,1)}
+#v-quiz.wrong .qask{min-height:23vh}
+#v-quiz.wrong .qask .big{font-size:29px}
+#v-quiz.wrong .qask .qdots{margin-top:14px}
+.nxt{flex:none;margin-top:12px;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:15px 18px;border:0;border-radius:10px;font:inherit;font-weight:700;font-size:15px;
+  color:#fff;background:var(--blue);cursor:pointer;box-shadow:0 9px 20px rgba(43,74,139,.28);
+  opacity:0;transform:translateY(10px);pointer-events:none;
+  transition:opacity .32s ease,transform .32s cubic-bezier(.2,.9,.3,1),filter .12s ease}
+.nxt.rdy{opacity:1;transform:none;pointer-events:auto}
+.nxt:active{filter:brightness(.94)}
+.nxt .i{font-size:15px}
+
+/* ---------- тест уровня ---------- */
+#v-test,#v-tq,#v-tres{display:flex;flex-direction:column;min-height:calc(100vh - 32px - var(--safe))}
+/* лист занимает верхнюю половину экрана, кнопки живут внизу — как в раунде */
+.tcard{flex:0 0 auto;min-height:44vh;display:flex;flex-direction:column;justify-content:center;
+  padding:30px 20px 28px 46px;margin-bottom:14px}
+.tcard::before{content:"";position:absolute;inset:0;background-image:
+  linear-gradient(rgba(43,74,139,.09) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(43,74,139,.09) 1px,transparent 1px);
+  background-size:24px 24px}
+.tcard::after{content:"";position:absolute;left:31px;top:0;bottom:0;width:1.5px;background:var(--marg)}
+.tcard>*{position:relative}
+.tcard h2{font-family:var(--serif);font-size:27px;letter-spacing:-.9px;line-height:1.14;margin:11px 0 15px}
+.tcard p{margin:0 0 11px;font-size:14.5px;line-height:1.55;color:var(--ink2)}
+.tcard p.tw{color:var(--dim);font-size:13.5px;margin-bottom:0}
+.tact,.tact2{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  justify-content:flex-end;gap:9px}
+.tres{min-height:47vh;text-align:center;padding:30px 20px 28px}
+.tres::after{display:none}
+.lvbig{font-family:var(--serif);font-size:64px;font-weight:700;letter-spacing:-3px;line-height:1;
+  color:var(--blue);margin:6px 0 2px;animation:pop .5s cubic-bezier(.2,1.6,.4,1) both}
+.lvsub{font-family:var(--serif);font-style:italic;font-size:18px;color:#7c7889}
+.tres .score{margin:11px 0 16px}
+.tres p{margin:0;text-align:left;font-size:14px;line-height:1.55;padding:13px 15px;
+  border-radius:9px;background:var(--blue-s);color:var(--ink2)}
+.thead{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex:none;font-size:12px;color:var(--dim)}
+.thead b{flex:1;font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--blue);font-weight:700}
+.thead .n{font-variant-numeric:tabular-nums}
+.qdots i.done{background:var(--blue)}
+.opt.sel{background:var(--blue-s);border-color:var(--blue);color:var(--blue)}
+/* «проверить уровень» на главной — как строчка на полях тетради */
+.relvl{width:100%;margin-top:4px;padding:13px;border:1.5px dashed rgba(43,74,139,.3);border-radius:10px;
+  background:transparent;color:var(--blue);font:inherit;font-size:13px;font-weight:700;cursor:pointer;
+  transition:background .18s ease}
+.relvl:active{background:var(--blue-s)}
+.lvl.mine{box-shadow:inset 0 2.5px 0 var(--blue),var(--sh1)}
+/* «содержание» теста и лестница уровней — вместо пустого места под листом:
+   человек сразу видит объём теста, а после теста — что именно ему открылось */
+.tplan{flex:0 0 auto;padding:6px 14px}
+.tp{display:flex;align-items:center;gap:11px;padding:13px 4px;
+  border-bottom:1px dashed rgba(43,74,139,.2);
+  opacity:0;transform:translateY(9px);animation:tpin .46s cubic-bezier(.2,.9,.3,1) both}
+.tp:last-child{border-bottom:0}
+@keyframes tpin{to{opacity:1;transform:none}}
+.tp i{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;
+  font-style:normal;font-size:11.5px;font-weight:700;color:var(--blue);
+  background:var(--blue-s);border:1.5px solid rgba(43,74,139,.2)}
+.tp i .i{width:13px;height:13px}
+.tp b{font-family:var(--serif);font-size:16.5px;letter-spacing:-.4px;color:var(--ink)}
+.tp span{flex:1;font-size:13.5px;color:var(--ink2)}
+.tp em{font-style:normal;font-size:11.5px;color:var(--dim);font-variant-numeric:tabular-nums;
+  text-align:right}
+.tp.now{background:var(--blue-s);border-radius:9px;border-bottom-color:transparent;padding:13px 9px}
+.tp.now i{background:var(--blue);border-color:var(--blue);color:#fff}
+.tp.now em{color:var(--blue);font-weight:700}
+.tp.off{opacity:.45}
+.tnote{margin:9px 4px 3px;font-size:11.5px;line-height:1.5;color:var(--dim);
+  opacity:0;animation:tpin .46s .34s cubic-bezier(.2,.9,.3,1) both}
+
+/* ---------- результат ---------- */
+#v-res{display:flex;flex-direction:column;min-height:calc(100vh - 110px - var(--safe))}
+.res{flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;
+  text-align:center;padding:28px 18px 26px}
+.res::before{content:"";position:absolute;inset:0;background-image:
+  linear-gradient(rgba(43,74,139,.07) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(43,74,139,.07) 1px,transparent 1px);
+  background-size:24px 24px}
+.res>*{position:relative}
+.res .bigstars{display:flex;justify-content:center;gap:9px;margin:2px 0 14px;line-height:0}
+.res .bigstars i{display:block;width:38px;height:38px;color:var(--gold);
+  animation:pop .45s cubic-bezier(.2,1.6,.4,1) both}
+.res .bigstars i svg{width:100%;height:100%;display:block}
+.res .bigstars i.off{color:#e2dfe9}
+.res .bigstars i:nth-child(2){animation-delay:.13s}.res .bigstars i:nth-child(3){animation-delay:.26s}
+@keyframes pop{0%{transform:scale(.2);opacity:0}70%{transform:scale(1.18)}100%{transform:scale(1);opacity:1}}
+.res h2{font-family:var(--serif);font-size:24px;margin-bottom:6px}
+.score{font-size:14.5px;color:var(--dim)}
+.gain{margin-top:13px;display:inline-block;padding:8px 16px;border-radius:8px;font-size:14px;font-weight:700;
+  color:#1d6b50;background:var(--green-s)}
+.tip{margin-top:14px;font-size:13px;line-height:1.5;color:var(--ink2);text-align:left;
+  padding:12px 14px;border-radius:8px;background:var(--blue-s)}
+.newach{display:flex;align-items:center;gap:12px;padding:14px 15px;text-align:left;
+  box-shadow:inset 0 2.5px 0 var(--gold),var(--sh2);animation:up .4s both}
+.newach .e{width:28px;height:28px;flex:none;line-height:0}
+.newach .e .i2{width:28px;height:28px}
+.newach b{display:block;font-size:15px}
+.res-act{margin-top:auto;padding-top:16px;display:flex;gap:9px}
+
+/* ---------- награды ---------- */
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.ach{padding:16px 13px;border-radius:10px;background:#fff;text-align:center;box-shadow:var(--sh2)}
+.ach .e{display:block;margin:0 auto 9px;line-height:0}
+.ach .e .i2{width:30px;height:30px;color:var(--blue)}
+.ach b{font-size:14px;display:block;margin-bottom:3px}
+.ach p{margin:0;font-size:11.5px;color:var(--dim);line-height:1.35}
+.ach.lock{background:#f5f3ef;box-shadow:none}
+.ach.lock .e .i2{color:#c6c2d0!important}
+.ach.lock b{color:#8b8798}
+.ach.on{box-shadow:inset 0 2.5px 0 var(--blue),var(--sh2)}
+
+/* ---------- магазин ---------- */
+.shop{box-shadow:inset 0 2.5px 0 var(--gold),var(--sh1)}
+.shop .t{font-family:var(--serif);font-size:18px;font-weight:700;margin-bottom:6px}
+.shop p{margin:0 0 13px;font-size:14px;color:var(--ink2);line-height:1.5}
 
 /* ---------- нижние вкладки ---------- */
-.tabs{
-  position:fixed;left:0;right:0;bottom:0;z-index:40;
-  display:flex;justify-content:center;gap:6px;
-  padding:8px 12px calc(8px + var(--safe));
-  background:linear-gradient(to top,var(--bg) 62%,transparent);
-  backdrop-filter:blur(12px);
-}
-.tab{
-  flex:1;max-width:170px;padding:9px 8px;border-radius:14px;border:1px solid transparent;
-  background:transparent;color:var(--dim);font:inherit;font-size:11.5px;font-weight:600;cursor:pointer;
-  display:flex;flex-direction:column;align-items:center;gap:3px;
-}
-.tab i{font-style:normal;font-size:18px;line-height:1}
-.tab.on{color:var(--txt);background:var(--card);border-color:var(--brd)}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;justify-content:center;
+  padding:11px 0 calc(11px + var(--safe));background:#fff;
+  box-shadow:0 -1px 0 var(--line),0 -10px 28px rgba(35,32,40,.05)}
+.tab{flex:1;max-width:170px;padding:0;border:0;background:transparent;color:#bdb9c8;
+  font:inherit;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px}
+.tab .i{font-size:21px}
+.tab b{font-size:11px;font-weight:700}
+.tab.on{color:var(--blue)}
+
 /* ---------- конфетти ---------- */
 #conf{position:fixed;inset:0;pointer-events:none;z-index:50;overflow:hidden}
 #conf i{position:absolute;top:-12px;width:8px;height:12px;border-radius:2px;animation:fall linear forwards}
 @keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.15}}
+
+/* ---------- перелистывание страницы тетради ---------- */
+#pgfx{position:fixed;inset:0;z-index:69;pointer-events:none;opacity:0;
+  will-change:transform,opacity;
+  background:linear-gradient(90deg,
+    rgba(35,32,40,.40) 0px,rgba(35,32,40,.20) 34px,
+    rgba(35,32,40,.07) 88px,rgba(35,32,40,0) 150px)}
+#pgfx.on{animation:pgshade .46s linear both}
+/* полоса тени идёт ровно за сгибом: положение повторяет косинус угла поворота */
+@keyframes pgshade{
+  0%{opacity:.9;transform:translateX(100%)}
+  17%{opacity:1;transform:translateX(99%)}
+  35%{opacity:1;transform:translateX(79%)}
+  52%{opacity:1;transform:translateX(29%)}
+  70%{opacity:.85;transform:translateX(0%)}
+  100%{opacity:0;transform:translateX(-6%)}
+}
+
+.flipping{
+  position:fixed!important;z-index:70;box-sizing:border-box;overflow:hidden;
+  padding:14px 16px;margin:0;
+  background-color:var(--paper);
+  background-image:
+    linear-gradient(rgba(43,74,139,.055) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(43,74,139,.055) 1px,transparent 1px);
+  background-size:24px 24px;
+  transform-origin:0 50%;
+  -webkit-backface-visibility:hidden;backface-visibility:hidden;
+  will-change:transform;
+  box-shadow:8px 0 30px rgba(35,32,40,.20);
+  animation:pgturn .46s cubic-bezier(.45,.05,.3,1) both;
+}
+/* переплёт слева + блик на изгибе листа */
+.flipping::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;
+  background:
+    linear-gradient(90deg,rgba(35,32,40,.44) 0%,rgba(35,32,40,.12) 16%,rgba(35,32,40,0) 36%),
+    linear-gradient(90deg,rgba(255,255,255,0) 52%,rgba(255,255,255,.55) 100%),
+    linear-gradient(rgba(35,32,40,.14),rgba(35,32,40,.14));
+  animation:pgface .46s cubic-bezier(.45,.05,.3,1) both}
+@keyframes pgturn{
+  0%{transform:perspective(1800px) rotateY(0deg)}
+  100%{transform:perspective(1800px) rotateY(-99deg)}
+}
+@keyframes pgface{0%{opacity:0}100%{opacity:1}}
+/* следующая страница проявляется из-под уходящей */
+.pgin{animation:pgin .40s cubic-bezier(.2,.8,.3,1) both}
+@keyframes pgin{0%{opacity:.50}65%{opacity:1}100%{opacity:1}}
+
+@media (prefers-reduced-motion:reduce){
+  .flipping,.flipping::after,#pgfx.on,.pgin{animation:none!important}
+}
 </style>
 </head>
 <body>
@@ -211,20 +400,20 @@ h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.02em}
         <div class="hello" id="hello">Willkommen!</div>
         <h1>Немецкие слова</h1>
       </div>
-      <div class="streak"><span class="fl">🔥</span><b id="stk">0</b></div>
+      <div class="streak"><span class="i" data-ic="flame"></span><b id="stk">0</b></div>
     </div>
 
     <div class="card wotd" id="wotd"></div>
 
-    <div class="card d1">
-      <div class="stats">
-        <div><b id="s-learn">0</b><span>выучено</span></div>
-        <div><b id="s-acc">0%</b><span>точность</span></div>
-        <div><b id="s-ach">0</b><span>наград</span></div>
-      </div>
+    <button class="cta" id="cta" onclick="continueLearning()"></button>
+
+    <div class="card stats d1">
+      <div class="st"><b id="s-learn">0</b><span>выучено</span></div><div class="stx"></div>
+      <div class="st"><b id="s-acc">0%</b><span>точность</span></div><div class="stx"></div>
+      <div class="st"><b id="s-ach">0</b><span>наград</span></div>
     </div>
 
-    <h3 style="margin:20px 4px 10px;font-size:14px;color:var(--dim);letter-spacing:.04em">УРОВНИ</h3>
+    <div class="sec">Уровни</div>
     <div id="levels"></div>
 
     <div id="shop-slot"></div>
@@ -233,21 +422,18 @@ h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.02em}
   <!-- ============ УРОВЕНЬ ============ -->
   <section id="v-level" class="hide">
     <div class="h-top">
-      <div><div class="hello" id="lv-sub"></div><h1 id="lv-name"></h1></div>
-      <div class="ringwrap"><svg class="ring" viewBox="0 0 44 44">
-        <circle class="bgc" cx="22" cy="22" r="19"></circle>
-        <circle class="fgc" id="lv-ring" cx="22" cy="22" r="19" stroke-dasharray="119.4" stroke-dashoffset="119.4"></circle>
-      </svg><span id="lv-pct">0%</span></div>
+      <div><div class="hello">Уровень</div><h1 id="lv-name"></h1></div>
+      <div class="ringwrap big" id="lv-ring"><span id="lv-pct">0%</span></div>
     </div>
+    <div class="sec">Наборы слов</div>
     <div id="packs"></div>
-    <button class="btn ghost" style="margin-top:14px" onclick="go('home')">← На главную</button>
+    <button class="btn ghost" style="margin-top:16px" onclick="go('home')">На главную</button>
   </section>
 
-  <!-- ============ КВИЗ ============ -->
+  <!-- ============ ВОПРОС + РАЗБОР ОШИБКИ ============ -->
   <section id="v-quiz" class="hide">
-    <div class="qbar"><i id="q-bar" style="width:0%"></i></div>
     <div class="qhead">
-      <button class="qx" onclick="quitQuiz()" aria-label="Выйти">✕</button>
+      <button class="qx" onclick="quitQuiz()" aria-label="Выйти"><span class="i" data-ic="close"></span></button>
       <span id="q-num">1 / 10</span>
       <span class="combo" id="q-combo"></span>
     </div>
@@ -255,6 +441,19 @@ h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.02em}
     <div id="q-hint"></div>
     <div id="q-opts"></div>
   </section>
+
+  <!-- ============ ТЕСТ УРОВНЯ ============ -->
+  <section id="v-test" class="hide"></section>
+  <section id="v-tq" class="hide">
+    <div class="thead">
+      <button class="qx" onclick="testQuit()" aria-label="Закрыть"><span class="i" data-ic="close"></span></button>
+      <b id="tq-part"></b>
+      <span class="n" id="tq-num"></span>
+    </div>
+    <div class="card qask" id="tq-ask"></div>
+    <div id="tq-opts"></div>
+  </section>
+  <section id="v-tres" class="hide"></section>
 
   <!-- ============ РЕЗУЛЬТАТ ============ -->
   <section id="v-res" class="hide"></section>
@@ -266,43 +465,132 @@ h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.02em}
   </section>
 </div>
 
-<div class="tabs" id="tabs">
-  <button class="tab on" id="tab-home" onclick="go('home')"><i>🏠</i>Учить</button>
-  <button class="tab" id="tab-ach" onclick="go('ach')"><i>🏆</i>Награды</button>
-</div>
+<nav class="tabs" id="tabs">
+  <button class="tab on" id="tab-home" onclick="go('home')"><span class="i" data-ic="cap"></span><b>Учить</b></button>
+  <button class="tab" id="tab-ach" onclick="go('ach')"><span class="i" data-ic="cup"></span><b>Награды</b></button>
+</nav>
+<div id="pgfx"></div>
 <div id="conf"></div>
 
 <script>
 "use strict";
 /* ==================================================================
+   0. ИКОНКИ — аккуратные линии вместо эмодзи в интерфейсе
+   ================================================================== */
+function _ln(p,w){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="'+w+
+  '" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'; }
+function _sd(p){ return '<svg viewBox="0 0 24 24" fill="currentColor">'+p+'</svg>'; }
+
+/* ---- рисованные иконки вместо эмодзи (наборы слов и награды) ---- */
+function _l(p){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"'+
+  ' stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'; }
+var IC2={
+  users:_l('<path d="M16 21v-1.8a4.2 4.2 0 0 0-4.2-4.2H6.2A4.2 4.2 0 0 0 2 19.2V21"/>'+
+    '<circle cx="9" cy="7.2" r="4"/><path d="M22 21v-1.8a4.2 4.2 0 0 0-3.1-4.05"/>'+
+    '<path d="M16.2 3.4a4 4 0 0 1 0 7.6"/>'),
+  home:_l('<path d="M3 10.6 12 3.2l9 7.4"/><path d="M5.2 9.4V20.4h13.6V9.4"/>'+
+    '<path d="M9.7 20.4v-5.6h4.6v5.6"/>'),
+  food:_l('<path d="M5 2v6.6a2.5 2.5 0 0 0 5 0V2"/><path d="M7.5 11.1V22"/>'+
+    '<path d="M19 2c-2.3 1-3.6 3.4-3.6 6.2v5.6H19"/><path d="M19 2v20"/>'),
+  clock:_l('<circle cx="12" cy="12" r="9"/><path d="M12 6.9v5.3l3.6 2.1"/>'),
+  bolt:_l('<path d="M13.4 2 4.2 13.3h5.5L10.6 22l9.2-11.3h-5.5z"/>'),
+  city:_l('<path d="M6 21.2V4.2A1.2 1.2 0 0 1 7.2 3h6.6A1.2 1.2 0 0 1 15 4.2v17"/>'+
+    '<path d="M15 9.4h2.8A1.2 1.2 0 0 1 19 10.6v10.6"/><path d="M2.6 21.2h18.8"/>'+
+    '<path d="M8.8 7h3.4M8.8 10.5h3.4M8.8 14h3.4M8.8 17.5h3.4"/>'),
+  work:_l('<rect x="2.6" y="7" width="18.8" height="13.4" rx="2"/>'+
+    '<path d="M8.6 7V5.2A2.2 2.2 0 0 1 10.8 3h2.4a2.2 2.2 0 0 1 2.2 2.2V7"/>'+
+    '<path d="M2.6 12.4h18.8"/>'),
+  med:_l('<circle cx="12" cy="12" r="9"/><path d="M12 7.5v9M7.5 12h9"/>'),
+  heart:_l('<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2'+
+    '-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>'),
+  wrench:_l('<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1'+
+    '-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>'),
+  globe:_l('<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/>'+
+    '<path d="M12 3a14 14 0 0 1 3.6 9 14 14 0 0 1-3.6 9 14 14 0 0 1-3.6-9A14 14 0 0 1 12 3Z"/>'),
+  trend:_l('<path d="M22 7.4 13.6 15.8l-4.4-4.4L2 18.6"/><path d="M15.6 7.4H22v6.4"/>'),
+  bulb:_l('<path d="M9.2 17.6h5.6"/><path d="M10.2 21h3.6"/>'+
+    '<path d="M15.1 14.4c.2-1 .8-1.9 1.6-2.7a5.9 5.9 0 1 0-9.4 0c.8.8 1.4 1.7 1.6 2.7"/>'),
+  target:_l('<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5.2"/>'+
+    '<circle cx="12" cy="12" r="1.5"/>'),
+  link:_l('<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>'+
+    '<path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>'),
+  sprout:_l('<path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/>'+
+    '<path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/>'+
+    '<path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/>'),
+  gem:_l('<path d="M6 3h12l4 6-10 12.6L2 9Z"/><path d="M11 3 8 9l4 12.6L16 9l-3-6"/><path d="M2 9h20"/>'),
+  cal:_l('<rect x="3" y="4.6" width="18" height="16.8" rx="2"/><path d="M8 2.4v4M16 2.4v4M3 10h18"/>'+
+    '<path d="M7.8 13.8h1.6M14.6 13.8h1.6M7.8 17.4h1.6M14.6 17.4h1.6"/>'),
+  mount:_l('<path d="m8 3 4 8 5-5 5 15H2L8 3z"/>'),
+  book:_l('<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>'+
+    '<path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>'),
+  medal:_l('<path d="M7.4 14.6 3 7.2a2 2 0 0 1 .1-2.2l1.6-2.1A2 2 0 0 1 6.3 2h11.4a2 2 0 0 1 1.6.9'+
+    'l1.6 2.1a2 2 0 0 1 .1 2.2l-4.4 7.4"/><path d="M11 12 5.4 2.4"/><path d="m13 12 5.6-9.6"/>'+
+    '<path d="M8.4 7h7.2"/><circle cx="12" cy="17" r="5"/>'),
+  moon:_l('<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>'),
+  crown:_l('<path d="M3 19 4.4 7.6l4.8 3.8L12 4.8l2.8 6.6 4.8-3.8L21 19Z"/><path d="M4.2 21.6h15.6"/>')
+};
+/* сплошная звезда — одинаково выглядит на любом телефоне */
+var STAR='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.6 2.4a.45.45 0 0 1 .8 0l2.4 4.9'+
+  'a1.8 1.8 0 0 0 1.35.98l5.4.79a.45.45 0 0 1 .25.77l-3.9 3.8a1.8 1.8 0 0 0-.52 1.6l.92 5.37'+
+  'a.45.45 0 0 1-.65.47l-4.83-2.54a1.8 1.8 0 0 0-1.67 0L6.3 21.08a.45.45 0 0 1-.65-.47l.92-5.37'+
+  'a1.8 1.8 0 0 0-.52-1.6l-3.9-3.8a.45.45 0 0 1 .25-.77l5.4-.79A1.8 1.8 0 0 0 9.15 7.3z"/></svg>';
+function ic2(n,c){ return '<span class="i2"'+(c?' style="color:'+c+'"':'')+'>'+(IC2[n]||ICO[n]||'')+'</span>'; }
+var ICO={
+  flame:_sd('<path d="M12.7 2.1c-.4-.3-1-.1-1.2.4-.5 1.6-1.4 2.8-2.4 3.9-1.6 1.7-3.4 3.6-3.4 6.7a6.3 6.3 0 0 0 12.6 0c0-2.3-1-4-2-5.4-.5-.7-1.6-.3-1.6.5 0 .9-.2 1.6-.6 2 .2-3.2-.5-6.4-1.4-8.1z"/><path d="M12 22a2.9 2.9 0 0 1-2.9-2.9c0-1.6 1.1-2.5 1.9-3.5.4-.5 1.1-.4 1.4.1.5.9 1.2 1.4 1.8 2 .5.5.7 1.1.7 1.9A2.9 2.9 0 0 1 12 22z" opacity=".55"/>'),
+  lock:_sd('<path d="M12 1.6A4.9 4.9 0 0 0 7.1 6.5v2.9h2.6V6.5a2.3 2.3 0 0 1 4.6 0v2.9h2.6V6.5A4.9 4.9 0 0 0 12 1.6z"/><rect x="4.2" y="9.4" width="15.6" height="12.4" rx="3"/>'),
+  chev:_ln('<path d="m9 18 6-6-6-6"/>','2.6'),
+  check:_ln('<path d="m4.5 12.6 5 5 10-11.2"/>','2.8'),
+  close:_ln('<path d="M6 6 18 18"/><path d="M18 6 6 18"/>','2.6'),
+  share:_ln('<path d="M7 17 17 7"/><path d="M8 7h9v9"/>','2.4'),
+  arr:_ln('<path d="M5 12h13"/><path d="m12 5.5 6.5 6.5-6.5 6.5"/>','2.4'),
+  cap:_ln('<path d="M21.4 10.9a1 1 0 0 0 0-1.8L12.8 5.2a2 2 0 0 0-1.6 0L2.6 9.1a1 1 0 0 0 0 1.8l8.6 3.9a2 2 0 0 0 1.6 0z"/><path d="M22 10.5V16"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>','2'),
+  cup:_ln('<path d="M6.5 9H5a2.5 2.5 0 0 1 0-5h1.5"/><path d="M17.5 9H19a2.5 2.5 0 0 0 0-5h-1.5"/><path d="M6.5 22h11"/><path d="M10 14.6V17c0 .9-.9 1.4-1.5 1.9-.8.6-1.3 1.7-1.3 3.1"/><path d="M14 14.6V17c0 .9.9 1.4 1.5 1.9.8.6 1.3 1.7 1.3 3.1"/><path d="M17.5 2.5h-11V9a5.5 5.5 0 0 0 11 0V2.5Z"/>','2')
+};
+function ic(n){ return '<span class="i">'+(ICO[n]||'')+'</span>'; }
+function paintIcons(){
+  var n=document.querySelectorAll('[data-ic]'),i;
+  for(i=0;i<n.length;i++) n[i].innerHTML = ICO[n[i].getAttribute('data-ic')]||'';
+}
+/* кольцо прогресса «карандашом по кругу» */
+function ringHtml(pct,big){
+  return '<div class="ringwrap'+(big?' big':'')+'" style="background:conic-gradient(#2b4a8b 0 '+
+    pct+'%,#e6e8f0 0)"><span>'+pct+'%</span></div>';
+}
+/* длинные немецкие слова не должны вылезать за карточку */
+function fit(s){ var n=String(s).replace(/<[^>]*>/g,'').length; return n>17?' s':(n>11?' m':''); }
+
+/* ==================================================================
    1. ДАННЫЕ
    ================================================================== */
-var LEVELS = [{"id":"a1","title":"A1","subtitle":"Первые шаги","packs":[{"id":"a1p1","title":"Люди","icon":"👥","words":[["der","Mann","мужчина","Der Mann liest eine Zeitung."],["die","Frau","женщина","Die Frau trinkt Kaffee."],["das","Kind","ребёнок","Das Kind spielt im Garten."],["der","Freund","друг","Mein Freund kommt aus Berlin."],["die","Familie","семья","Meine Familie ist groß."],["der","Name","имя","Wie ist Ihr Name?"],["die","Frage","вопрос","Ich habe eine Frage."],["die","Antwort","ответ","Deine Antwort ist richtig."],["der","Tag","день","Der Tag war sehr lang."],["die","Nacht","ночь","Die Nacht ist ruhig."]]},{"id":"a1p2","title":"Дом","icon":"🏠","words":[["das","Haus","дом","Das Haus ist alt."],["die","Wohnung","квартира","Die Wohnung hat drei Zimmer."],["das","Zimmer","комната","Mein Zimmer ist klein."],["die","Tür","дверь","Bitte mach die Tür zu."],["das","Fenster","окно","Das Fenster ist offen."],["der","Tisch","стол","Der Tisch steht in der Küche."],["der","Stuhl","стул","Der Stuhl ist bequem."],["das","Bett","кровать","Das Bett ist sehr weich."],["die","Küche","кухня","Die Küche ist hell."],["das","Bad","ванная","Das Bad ist neu."]]},{"id":"a1p3","title":"Еда","icon":"🍞","words":[["das","Brot","хлеб","Das Brot schmeckt frisch."],["die","Butter","масло","Die Butter ist im Kühlschrank."],["der","Käse","сыр","Der Käse kommt aus Bayern."],["das","Wasser","вода","Ich trinke gern Wasser."],["der","Kaffee","кофе","Der Kaffee ist noch heiß."],["der","Tee","чай","Der Tee ist zu stark."],["die","Milch","молоко","Die Milch ist leider sauer."],["der","Apfel","яблоко","Der Apfel ist rot und süß."],["das","Ei","яйцо","Das Ei kocht fünf Minuten."],["die","Wurst","колбаса","Die Wurst liegt auf dem Teller."]]},{"id":"a1p4","title":"Время","icon":"⏰","words":[["die","Uhr","часы","Die Uhr geht zwei Minuten vor."],["die","Stunde","час","Die Stunde vergeht schnell."],["die","Minute","минута","Warte bitte eine Minute."],["die","Woche","неделя","Die Woche war anstrengend."],["der","Monat","месяц","Der Monat ist fast vorbei."],["das","Jahr","год","Das Jahr beginnt im Januar."],["","heute","сегодня","Heute bleibe ich zu Hause."],["","morgen","завтра","Morgen fahre ich nach Wien."],["","gestern","вчера","Gestern hat es geregnet."],["","jetzt","сейчас","Jetzt habe ich keine Zeit."]]},{"id":"a1p5","title":"Глаголы","icon":"⚡","words":[["","sein","быть","Ich bin müde."],["","haben","иметь","Wir haben einen Hund."],["","gehen","идти","Wir gehen ins Kino."],["","kommen","приходить","Er kommt um acht Uhr."],["","machen","делать","Was machst du am Wochenende?"],["","essen","есть","Wir essen um sieben."],["","trinken","пить","Sie trinken Tee mit Zitrone."],["","sprechen","говорить","Sprechen Sie Deutsch?"],["","wohnen","жить","Ich wohne in Taschkent."],["","arbeiten","работать","Er arbeitet bei einer Bank."]]}]},{"id":"a2","title":"A2","subtitle":"Уверенный старт","packs":[{"id":"a2p1","title":"Город","icon":"🏙","words":[["die","Stadt","город","Die Stadt ist sehr lebendig."],["der","Bahnhof","вокзал","Der Bahnhof liegt im Zentrum."],["die","Straße","улица","Die Straße ist heute gesperrt."],["der","Platz","площадь","Der Platz ist voller Menschen."],["die","Haltestelle","остановка","Die Haltestelle ist gleich dort."],["das","Rathaus","ратуша","Das Rathaus wurde 1890 gebaut."],["die","Brücke","мост","Die Brücke über den Fluss ist neu."],["der","Weg","путь","Der Weg dauert zwanzig Minuten."],["die","Ampel","светофор","Die Ampel ist gerade rot."],["die","Ecke","угол","Das Cafe ist um die Ecke."]]},{"id":"a2p2","title":"Работа","icon":"💼","words":[["die","Arbeit","работа","Die Arbeit macht mir Spaß."],["der","Beruf","профессия","Was sind Sie von Beruf?"],["das","Büro","офис","Das Büro liegt im dritten Stock."],["der","Chef","начальник","Der Chef ist heute nicht da."],["die","Kollegin","коллега","Meine Kollegin hilft mir oft."],["die","Prüfung","экзамен","Die Prüfung war ziemlich schwer."],["der","Termin","встреча","Ich habe morgen einen Termin."],["die","Rechnung","счёт","Die Rechnung kommt per Post."],["der","Vertrag","договор","Der Vertrag läuft ein Jahr."],["die","Besprechung","совещание","Die Besprechung fängt gleich an."]]},{"id":"a2p3","title":"Здоровье","icon":"🩺","words":[["der","Kopf","голова","Mein Kopf tut weh."],["der","Bauch","живот","Der Bauch tut seit gestern weh."],["der","Rücken","спина","Mein Rücken ist verspannt."],["das","Auge","глаз","Das Auge ist gerötet."],["die","Hand","рука","Gib mir bitte die Hand."],["der","Arzt","врач","Der Arzt hat wenig Zeit."],["die","Schmerzen","боль","Die Schmerzen sind weg."],["das","Fieber","температура","Das Fieber steigt am Abend."],["die","Apotheke","аптека","Die Apotheke hat bis acht offen."],["die","Gesundheit","здоровье","Die Gesundheit ist das Wichtigste."]]},{"id":"a2p4","title":"Чувства","icon":"💛","words":[["die","Freude","радость","Die Freude war riesig."],["die","Angst","страх","Die Angst war schnell vorbei."],["die","Wut","злость","Die Wut kam ganz plötzlich."],["die","Liebe","любовь","Die Liebe braucht Geduld."],["","müde","усталый","Ich bin heute sehr müde."],["","glücklich","счастливый","Sie ist wirklich glücklich."],["","traurig","грустный","Warum bist du so traurig?"],["","freundlich","приветливый","Der Verkäufer war sehr freundlich."],["","ruhig","спокойный","Bleib bitte ganz ruhig."],["","nervös","нервный","Vor der Prüfung war ich nervös."]]},{"id":"a2p5","title":"Глаголы","icon":"🔧","words":[["","bekommen","получать","Ich bekomme jeden Tag Post."],["","verstehen","понимать","Ich verstehe die Frage nicht."],["","erklären","объяснять","Kannst du das noch mal erklären?"],["","versuchen","пытаться","Ich versuche es noch einmal."],["","entscheiden","решать","Du musst selbst entscheiden."],["","vergessen","забывать","Ich vergesse ständig den Schlüssel."],["","sich freuen","радоваться","Ich freue mich auf den Urlaub."],["","sich treffen","встречаться","Wir treffen uns um sechs."],["","brauchen","нуждаться","Ich brauche mehr Zeit."],["","gefallen","нравиться","Die Stadt gefällt mir sehr."]]}]},{"id":"b1","title":"B1","subtitle":"Свободная речь","packs":[{"id":"b1p1","title":"Общество","icon":"🌍","words":[["die","Gesellschaft","общество","Die Gesellschaft verändert sich schnell."],["die","Regierung","правительство","Die Regierung plant neue Gesetze."],["die","Wahl","выборы","Die Wahl findet im Herbst statt."],["die","Meinung","мнение","Meine Meinung ist anders."],["die","Umwelt","окружающая среда","Die Umwelt braucht unseren Schutz."],["die","Entwicklung","развитие","Die Entwicklung geht rasant weiter."],["der","Einfluss","влияние","Der Einfluss der Medien ist groß."],["die","Bedeutung","значение","Die Bedeutung des Wortes ist unklar."],["die","Möglichkeit","возможность","Es gibt noch eine Möglichkeit."],["die","Verantwortung","ответственность","Die Verantwortung liegt bei uns."]]},{"id":"b1p2","title":"Карьера","icon":"📈","words":[["die","Bewerbung","заявка на работу","Die Bewerbung ist schon abgeschickt."],["das","Vorstellungsgespräch","собеседование","Das Vorstellungsgespräch lief gut."],["die","Fähigkeit","способность","Diese Fähigkeit ist sehr gefragt."],["die","Herausforderung","вызов","Die Herausforderung reizt mich."],["die","Kündigung","увольнение","Die Kündigung kam voellig unerwartet."],["das","Gehalt","зарплата","Das Gehalt wird monatlich überwiesen."],["die","Weiterbildung","повышение квалификации","Die Weiterbildung dauert sechs Monate."],["der","Vorschlag","предложение","Dein Vorschlag klingt vernünftig."],["die","Zusammenarbeit","сотрудничество","Die Zusammenarbeit war angenehm."],["die","Erfahrung","опыт","Die Erfahrung zählt hier mehr."]]},{"id":"b1p3","title":"Мысли","icon":"🧠","words":[["die","Überzeugung","убеждение","Das ist meine feste Überzeugung."],["der","Zweifel","сомнение","Der Zweifel bleibt trotzdem."],["die","Ahnung","представление","Ich habe keine Ahnung davon."],["die","Absicht","намерение","Das war nicht meine Absicht."],["der","Zufall","случайность","Das war ein reiner Zufall."],["die","Ursache","причина","Die Ursache ist noch unbekannt."],["die","Folge","последствие","Die Folge war ein langer Streit."],["der","Unterschied","разница","Der Unterschied ist kaum zu sehen."],["der","Vorteil","преимущество","Der Vorteil liegt auf der Hand."],["der","Nachteil","недостаток","Der Nachteil ist der hohe Preis."]]},{"id":"b1p4","title":"Глаголы","icon":"🎯","words":[["","behaupten","утверждать","Er behauptet, alles zu wissen."],["","bezweifeln","сомневаться","Ich bezweifle diese Zahlen."],["","vermuten","предполагать","Wir vermuten einen Fehler im System."],["","verzichten","отказываться","Ich verzichte auf den Nachtisch."],["","sich beschweren","жаловаться","Sie beschwert sich über den Lärm."],["","sich gewöhnen","привыкать","Man gewöhnt sich an alles."],["","erreichen","достигать","Wir erreichen das Ziel bestimmt."],["","vermeiden","избегать","Diesen Fehler kann man vermeiden."],["","überzeugen","убеждать","Das Argument überzeugt mich nicht."],["","berücksichtigen","учитывать","Wir berücksichtigen alle Wünsche."]]},{"id":"b1p5","title":"Связки","icon":"🔗","words":[["","trotzdem","тем не менее","Es regnete. Trotzdem gingen wir spazieren."],["","deshalb","поэтому","Es war spät, deshalb blieb ich zu Hause."],["","obwohl","хотя","Er kam, obwohl er krank war."],["","allerdings","правда, однако","Das Hotel war schön, allerdings teuer."],["","jedenfalls","во всяком случае","Jedenfalls hat es funktioniert."],["","immerhin","по крайней мере","Immerhin haben wir es versucht."],["","kaum","едва","Ich habe kaum geschlafen."],["","ausgerechnet","как назло","Ausgerechnet heute fällt der Zug aus."],["","vorläufig","пока что","Vorlaeufig bleibt alles so."],["","ohnehin","и так, всё равно","Ich wollte ohnehin früher gehen."]]}]}];
+var LEVELS = [{"id":"a1","title":"A1","subtitle":"Первые шаги","packs":[{"id":"a1p1","title":"Люди","icon":"users","words":[["der","Mann","мужчина","Der Mann liest eine Zeitung."],["die","Frau","женщина","Die Frau trinkt Kaffee."],["das","Kind","ребёнок","Das Kind spielt im Garten."],["der","Freund","друг","Mein Freund kommt aus Berlin."],["die","Familie","семья","Meine Familie ist groß."],["der","Name","имя","Wie ist Ihr Name?"],["die","Frage","вопрос","Ich habe eine Frage."],["die","Antwort","ответ","Deine Antwort ist richtig."],["der","Tag","день","Der Tag war sehr lang."],["die","Nacht","ночь","Die Nacht ist ruhig."]]},{"id":"a1p2","title":"Дом","icon":"home","words":[["das","Haus","дом","Das Haus ist alt."],["die","Wohnung","квартира","Die Wohnung hat drei Zimmer."],["das","Zimmer","комната","Mein Zimmer ist klein."],["die","Tür","дверь","Bitte mach die Tür zu."],["das","Fenster","окно","Das Fenster ist offen."],["der","Tisch","стол","Der Tisch steht in der Küche."],["der","Stuhl","стул","Der Stuhl ist bequem."],["das","Bett","кровать","Das Bett ist sehr weich."],["die","Küche","кухня","Die Küche ist hell."],["das","Bad","ванная","Das Bad ist neu."]]},{"id":"a1p3","title":"Еда","icon":"food","words":[["das","Brot","хлеб","Das Brot schmeckt frisch."],["die","Butter","масло","Die Butter ist im Kühlschrank."],["der","Käse","сыр","Der Käse kommt aus Bayern."],["das","Wasser","вода","Ich trinke gern Wasser."],["der","Kaffee","кофе","Der Kaffee ist noch heiß."],["der","Tee","чай","Der Tee ist zu stark."],["die","Milch","молоко","Die Milch ist leider sauer."],["der","Apfel","яблоко","Der Apfel ist rot und süß."],["das","Ei","яйцо","Das Ei kocht fünf Minuten."],["die","Wurst","колбаса","Die Wurst liegt auf dem Teller."]]},{"id":"a1p4","title":"Время","icon":"clock","words":[["die","Uhr","часы","Die Uhr geht zwei Minuten vor."],["die","Stunde","час","Die Stunde vergeht schnell."],["die","Minute","минута","Warte bitte eine Minute."],["die","Woche","неделя","Die Woche war anstrengend."],["der","Monat","месяц","Der Monat ist fast vorbei."],["das","Jahr","год","Das Jahr beginnt im Januar."],["","heute","сегодня","Heute bleibe ich zu Hause."],["","morgen","завтра","Morgen fahre ich nach Wien."],["","gestern","вчера","Gestern hat es geregnet."],["","jetzt","сейчас","Jetzt habe ich keine Zeit."]]},{"id":"a1p5","title":"Глаголы","icon":"bolt","words":[["","sein","быть","Ich bin müde."],["","haben","иметь","Wir haben einen Hund."],["","gehen","идти","Wir gehen ins Kino."],["","kommen","приходить","Er kommt um acht Uhr."],["","machen","делать","Was machst du am Wochenende?"],["","essen","есть","Wir essen um sieben."],["","trinken","пить","Sie trinken Tee mit Zitrone."],["","sprechen","говорить","Sprechen Sie Deutsch?"],["","wohnen","жить","Ich wohne in Taschkent."],["","arbeiten","работать","Er arbeitet bei einer Bank."]]}]},{"id":"a2","title":"A2","subtitle":"Уверенный старт","packs":[{"id":"a2p1","title":"Город","icon":"city","words":[["die","Stadt","город","Die Stadt ist sehr lebendig."],["der","Bahnhof","вокзал","Der Bahnhof liegt im Zentrum."],["die","Straße","улица","Die Straße ist heute gesperrt."],["der","Platz","площадь","Der Platz ist voller Menschen."],["die","Haltestelle","остановка","Die Haltestelle ist gleich dort."],["das","Rathaus","ратуша","Das Rathaus wurde 1890 gebaut."],["die","Brücke","мост","Die Brücke über den Fluss ist neu."],["der","Weg","путь","Der Weg dauert zwanzig Minuten."],["die","Ampel","светофор","Die Ampel ist gerade rot."],["die","Ecke","угол","Das Cafe ist um die Ecke."]]},{"id":"a2p2","title":"Работа","icon":"work","words":[["die","Arbeit","работа","Die Arbeit macht mir Spaß."],["der","Beruf","профессия","Was sind Sie von Beruf?"],["das","Büro","офис","Das Büro liegt im dritten Stock."],["der","Chef","начальник","Der Chef ist heute nicht da."],["die","Kollegin","коллега","Meine Kollegin hilft mir oft."],["die","Prüfung","экзамен","Die Prüfung war ziemlich schwer."],["der","Termin","встреча","Ich habe morgen einen Termin."],["die","Rechnung","счёт","Die Rechnung kommt per Post."],["der","Vertrag","договор","Der Vertrag läuft ein Jahr."],["die","Besprechung","совещание","Die Besprechung fängt gleich an."]]},{"id":"a2p3","title":"Здоровье","icon":"med","words":[["der","Kopf","голова","Mein Kopf tut weh."],["der","Bauch","живот","Der Bauch tut seit gestern weh."],["der","Rücken","спина","Mein Rücken ist verspannt."],["das","Auge","глаз","Das Auge ist gerötet."],["die","Hand","рука","Gib mir bitte die Hand."],["der","Arzt","врач","Der Arzt hat wenig Zeit."],["die","Schmerzen","боль","Die Schmerzen sind weg."],["das","Fieber","температура","Das Fieber steigt am Abend."],["die","Apotheke","аптека","Die Apotheke hat bis acht offen."],["die","Gesundheit","здоровье","Die Gesundheit ist das Wichtigste."]]},{"id":"a2p4","title":"Чувства","icon":"heart","words":[["die","Freude","радость","Die Freude war riesig."],["die","Angst","страх","Die Angst war schnell vorbei."],["die","Wut","злость","Die Wut kam ganz plötzlich."],["die","Liebe","любовь","Die Liebe braucht Geduld."],["","müde","усталый","Ich bin heute sehr müde."],["","glücklich","счастливый","Sie ist wirklich glücklich."],["","traurig","грустный","Warum bist du so traurig?"],["","freundlich","приветливый","Der Verkäufer war sehr freundlich."],["","ruhig","спокойный","Bleib bitte ganz ruhig."],["","nervös","нервный","Vor der Prüfung war ich nervös."]]},{"id":"a2p5","title":"Глаголы","icon":"wrench","words":[["","bekommen","получать","Ich bekomme jeden Tag Post."],["","verstehen","понимать","Ich verstehe die Frage nicht."],["","erklären","объяснять","Kannst du das noch mal erklären?"],["","versuchen","пытаться","Ich versuche es noch einmal."],["","entscheiden","решать","Du musst selbst entscheiden."],["","vergessen","забывать","Ich vergesse ständig den Schlüssel."],["","sich freuen","радоваться","Ich freue mich auf den Urlaub."],["","sich treffen","встречаться","Wir treffen uns um sechs."],["","brauchen","нуждаться","Ich brauche mehr Zeit."],["","gefallen","нравиться","Die Stadt gefällt mir sehr."]]}]},{"id":"b1","title":"B1","subtitle":"Свободная речь","packs":[{"id":"b1p1","title":"Общество","icon":"globe","words":[["die","Gesellschaft","общество","Die Gesellschaft verändert sich schnell."],["die","Regierung","правительство","Die Regierung plant neue Gesetze."],["die","Wahl","выборы","Die Wahl findet im Herbst statt."],["die","Meinung","мнение","Meine Meinung ist anders."],["die","Umwelt","окружающая среда","Die Umwelt braucht unseren Schutz."],["die","Entwicklung","развитие","Die Entwicklung geht rasant weiter."],["der","Einfluss","влияние","Der Einfluss der Medien ist groß."],["die","Bedeutung","значение","Die Bedeutung des Wortes ist unklar."],["die","Möglichkeit","возможность","Es gibt noch eine Möglichkeit."],["die","Verantwortung","ответственность","Die Verantwortung liegt bei uns."]]},{"id":"b1p2","title":"Карьера","icon":"trend","words":[["die","Bewerbung","заявка на работу","Die Bewerbung ist schon abgeschickt."],["das","Vorstellungsgespräch","собеседование","Das Vorstellungsgespräch lief gut."],["die","Fähigkeit","способность","Diese Fähigkeit ist sehr gefragt."],["die","Herausforderung","вызов","Die Herausforderung reizt mich."],["die","Kündigung","увольнение","Die Kündigung kam voellig unerwartet."],["das","Gehalt","зарплата","Das Gehalt wird monatlich überwiesen."],["die","Weiterbildung","повышение квалификации","Die Weiterbildung dauert sechs Monate."],["der","Vorschlag","предложение","Dein Vorschlag klingt vernünftig."],["die","Zusammenarbeit","сотрудничество","Die Zusammenarbeit war angenehm."],["die","Erfahrung","опыт","Die Erfahrung zählt hier mehr."]]},{"id":"b1p3","title":"Мысли","icon":"bulb","words":[["die","Überzeugung","убеждение","Das ist meine feste Überzeugung."],["der","Zweifel","сомнение","Der Zweifel bleibt trotzdem."],["die","Ahnung","представление","Ich habe keine Ahnung davon."],["die","Absicht","намерение","Das war nicht meine Absicht."],["der","Zufall","случайность","Das war ein reiner Zufall."],["die","Ursache","причина","Die Ursache ist noch unbekannt."],["die","Folge","последствие","Die Folge war ein langer Streit."],["der","Unterschied","разница","Der Unterschied ist kaum zu sehen."],["der","Vorteil","преимущество","Der Vorteil liegt auf der Hand."],["der","Nachteil","недостаток","Der Nachteil ist der hohe Preis."]]},{"id":"b1p4","title":"Глаголы","icon":"target","words":[["","behaupten","утверждать","Er behauptet, alles zu wissen."],["","bezweifeln","сомневаться","Ich bezweifle diese Zahlen."],["","vermuten","предполагать","Wir vermuten einen Fehler im System."],["","verzichten","отказываться","Ich verzichte auf den Nachtisch."],["","sich beschweren","жаловаться","Sie beschwert sich über den Lärm."],["","sich gewöhnen","привыкать","Man gewöhnt sich an alles."],["","erreichen","достигать","Wir erreichen das Ziel bestimmt."],["","vermeiden","избегать","Diesen Fehler kann man vermeiden."],["","überzeugen","убеждать","Das Argument überzeugt mich nicht."],["","berücksichtigen","учитывать","Wir berücksichtigen alle Wünsche."]]},{"id":"b1p5","title":"Связки","icon":"link","words":[["","trotzdem","тем не менее","Es regnete. Trotzdem gingen wir spazieren."],["","deshalb","поэтому","Es war spät, deshalb blieb ich zu Hause."],["","obwohl","хотя","Er kam, obwohl er krank war."],["","allerdings","правда, однако","Das Hotel war schön, allerdings teuer."],["","jedenfalls","во всяком случае","Jedenfalls hat es funktioniert."],["","immerhin","по крайней мере","Immerhin haben wir es versucht."],["","kaum","едва","Ich habe kaum geschlafen."],["","ausgerechnet","как назло","Ausgerechnet heute fällt der Zug aus."],["","vorläufig","пока что","Vorlaeufig bleibt alles so."],["","ohnehin","и так, всё равно","Ich wollte ohnehin früher gehen."]]}]}];
 
 var FLAT = [];
 LEVELS.forEach(function(lv,li){ lv.packs.forEach(function(pk,pi){ pk.words.forEach(function(w,wi){
   FLAT.push({gi:li*50+pi*10+wi, li:li, pi:pi, lvId:lv.id, pkId:pk.id,
-             art:w[0], de:w[1], ru:w[2], ex:w[3]});
+             art:w[0], de:w[1], ru:w[2], ex:w[3],
+             /* lbl — слово так, как его надо запоминать: существительное всегда
+                вместе с артиклем. Именно lbl показываем в вариантах ответа. */
+             lbl:(w[0] ? w[0]+' '+w[1] : w[1])});
 });});});
 var TOTAL = FLAT.length;
 
 var ACH = [
-  {id:'start',  e:'🌱', t:'Первый шаг',       d:'Пройти первый набор слов'},
-  {id:'perfect',e:'💎', t:'Без ошибок',        d:'10 из 10 за один раунд'},
-  {id:'streak3',e:'🔥', t:'Три дня',           d:'Заходить 3 дня подряд'},
-  {id:'streak7',e:'🗓', t:'Целая неделя',      d:'Заходить 7 дней подряд'},
-  {id:'streak30',e:'🏔',t:'Месяц дисциплины',  d:'Заходить 30 дней подряд'},
-  {id:'w25',    e:'📗', t:'25 слов',           d:'Выучить 25 слов'},
-  {id:'w50',    e:'📘', t:'50 слов',           d:'Выучить 50 слов'},
-  {id:'w100',   e:'📕', t:'100 слов',          d:'Выучить 100 слов'},
-  {id:'w150',   e:'🎓', t:'Все 150',           d:'Выучить все 150 слов'},
-  {id:'lvl_a1', e:'🥉', t:'Уровень A1',        d:'Закрыть все наборы A1'},
-  {id:'lvl_a2', e:'🥈', t:'Уровень A2',        d:'Закрыть все наборы A2'},
-  {id:'lvl_b1', e:'🥇', t:'Уровень B1',        d:'Закрыть все наборы B1'},
-  {id:'artikel',e:'🎯', t:'Мастер артиклей',   d:'15 верных артиклей подряд'},
-  {id:'fast',   e:'⚡️', t:'Молния',            d:'Раунд быстрее 60 секунд'},
-  {id:'owl',    e:'🦉', t:'Ночная сова',       d:'Позаниматься после 23:00'},
-  {id:'gold',   e:'👑', t:'Золотая коллекция', d:'3 звезды во всех 15 наборах'}
+  {id:'start',  e:'sprout',c:'#2e8b6b', t:'Первый шаг',       d:'Пройти первый набор слов'},
+  {id:'perfect',e:'gem',c:'#3f9bc4', t:'Без ошибок',        d:'10 из 10 за один раунд'},
+  {id:'streak3',e:'flame',c:'#d6453c', t:'Три дня',           d:'Заходить 3 дня подряд'},
+  {id:'streak7',e:'cal',c:'#2b4a8b', t:'Целая неделя',      d:'Заходить 7 дней подряд'},
+  {id:'streak30',e:'mount',c:'#5a6a8c',t:'Месяц дисциплины',  d:'Заходить 30 дней подряд'},
+  {id:'w25',    e:'book',c:'#2e8b6b', t:'25 слов',           d:'Выучить 25 слов'},
+  {id:'w50',    e:'book',c:'#2b4a8b', t:'50 слов',           d:'Выучить 50 слов'},
+  {id:'w100',   e:'book',c:'#d6453c', t:'100 слов',          d:'Выучить 100 слов'},
+  {id:'w150',   e:'cap',c:'#2b4a8b', t:'Все 150',           d:'Выучить все 150 слов'},
+  {id:'lvl_a1', e:'medal',c:'#b07a45', t:'Уровень A1',        d:'Закрыть все наборы A1'},
+  {id:'lvl_a2', e:'medal',c:'#8e94a3', t:'Уровень A2',        d:'Закрыть все наборы A2'},
+  {id:'lvl_b1', e:'medal',c:'#d99a1f', t:'Уровень B1',        d:'Закрыть все наборы B1'},
+  {id:'artikel',e:'target',c:'#b0398a', t:'Мастер артиклей',   d:'15 верных артиклей подряд'},
+  {id:'fast',   e:'bolt',c:'#d99a1f', t:'Молния',            d:'Раунд быстрее 60 секунд'},
+  {id:'owl',    e:'moon',c:'#4c4a78', t:'Ночная сова',       d:'Позаниматься после 23:00'},
+  {id:'gold',   e:'crown',c:'#d99a1f', t:'Золотая коллекция', d:'3 звезды во всех 15 наборах'}
 ];
 
 /* ==================================================================
@@ -366,8 +654,10 @@ function save(){
    4. СОСТОЯНИЕ
    ================================================================== */
 function blank(){
+  /* lv — уровень, который показал тест (0=A1, 1=A2, 2=B1)
+     tst — 0 тест не пройден, 1 пройден, 2 пропущен («начинаю с нуля») */
   return {v:1, s:{n:0,d:''}, m:new Array(TOTAL+1).join('0'), p:{}, a:[],
-          t:{q:0,c:0,best:0,ars:0}};
+          t:{q:0,c:0,best:0,ars:0}, lv:0, tst:0};
 }
 var S = blank();
 
@@ -387,6 +677,8 @@ function normalize(o){
   if(o.t && typeof o.t==='object'){
     b.t.q=o.t.q|0; b.t.c=o.t.c|0; b.t.best=o.t.best|0; b.t.ars=o.t.ars|0;
   }
+  if(typeof o.lv==='number')  b.lv  = Math.max(0, Math.min(LEVELS.length-1, o.lv|0));
+  if(typeof o.tst==='number') b.tst = Math.max(0, Math.min(2, o.tst|0));
   return b;
 }
 
@@ -407,7 +699,10 @@ function levelPct(li){
   for(i=0;i<pk.length;i++) sum+=packStars(pk[i].id);
   return Math.round(sum/(pk.length*3)*100);
 }
-function levelOpen(li){ return li===0 ? true : levelDone(li-1); }
+function startLevel(){ return Math.max(0, Math.min(LEVELS.length-1, S.lv|0)); }
+/* Уровни вплоть до определённого тестом открыты сразу: заставлять человека,
+   который уже знает A1, проходить его заново — верный способ его потерять. */
+function levelOpen(li){ return li<=startLevel() || levelDone(li-1); }
 
 /* ---------- даты ---------- */
 function ymd(d){
@@ -466,38 +761,97 @@ function plural(n,one,few,many){
   return many;
 }
 function artHtml(w){ return w.art ? '<span class="art-'+w.art+'">'+w.art+'</span> ' : ''; }
+/* Вариант ответа на кнопке: артикль подсвечен своим цветом — тем же, что и во
+   всём приложении. Род запоминается глазами, а не отдельным зубрёжным усилием.
+   На сравнение это не влияет: сверяем data-v, а там обычный текст. */
+function optHtml(v){
+  var m=/^(der|die|das) (.+)$/.exec(v);
+  /* Кнопка — flex-контейнер, обычный пробел между элементами схлопывается,
+     поэтому пробел живёт неразрывным внутри самого артикля. */
+  return m ? '<span class="art-'+m[1]+'">'+m[1]+'&nbsp;</span>'+esc(m[2]) : esc(v);
+}
 function starRow(n){
   var s='',i;
-  for(i=0;i<3;i++) s += i<n ? '<span>★</span>' : '<span class="st-off">★</span>';
+  for(i=0;i<3;i++) s += '<i class="'+(i<n?'':'st-off')+'">'+STAR+'</i>';
   return '<div class="stars">'+s+'</div>';
 }
 
 /* ==================================================================
    7. НАВИГАЦИЯ
    ================================================================== */
-var VIEWS=['home','level','quiz','res','ach'];
+var VIEWS=['home','level','quiz','res','ach','test','tq','tres'];
 var view='home', lastLevel=0;
+/* ---- перелистывание: уходящий экран поворачивается вокруг левого поля ---- */
+var FLIP_MS=460, flipEl=null, flipTid=0;
+/* тяжёлый эффект сам отключается на слабых телефонах и при «меньше движения» */
+var FLIP_OK=(function(){
+  try{
+    if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+    if(navigator.deviceMemory && navigator.deviceMemory<1) return false;
+    if(navigator.hardwareConcurrency && navigator.hardwareConcurrency<2) return false;
+  }catch(e){}
+  return true;
+})();
+function flipEnd(){
+  if(flipTid){ clearTimeout(flipTid); flipTid=0; }
+  var el=flipEl; if(!el) return;
+  flipEl=null;
+  el.classList.remove('flipping');
+  el.style.left=''; el.style.width=''; el.style.top=''; el.style.height='';
+  if(el.id!=='v-'+view) el.classList.add('hide');
+  var fx=document.getElementById('pgfx'); if(fx) fx.className='';
+}
+function flipStart(el,r){
+  var off=r.top-14, fx=document.getElementById('pgfx');
+  el.classList.remove('hide');
+  el.style.left=(r.left-16)+'px';
+  el.style.width=(r.width+32)+'px';
+  el.style.top=off+'px';
+  el.style.height=(window.innerHeight-off)+'px';
+  el.classList.add('flipping');
+  flipEl=el;
+  if(fx){ fx.className=''; void fx.offsetWidth; fx.className='on'; }
+  flipTid=setTimeout(flipEnd, FLIP_MS+60);
+}
 function go(v,arg){
+  var old=null, r=null, cur;
+  if(FLIP_OK && view && view!==v){
+    cur=document.getElementById('v-'+view);
+    if(cur && !cur.classList.contains('hide')){
+      r=cur.getBoundingClientRect();
+      if(r.width>0 && r.height>0) old=cur;
+    }
+  }
+  flipEnd();
   view=v;
   VIEWS.forEach(function(x){ document.getElementById('v-'+x).classList.add('hide'); });
   document.getElementById('v-'+v).classList.remove('hide');
   document.getElementById('tab-home').classList.toggle('on', v!=='ach');
   document.getElementById('tab-ach').classList.toggle('on', v==='ach');
   /* во время раунда прячем вкладки, чтобы случайный тап не оборвал его */
-  document.getElementById('tabs').classList.toggle('hide', v==='quiz');
-  document.getElementById('app').classList.toggle('nopad', v==='quiz');
+  var solo = (v==='quiz'||v==='test'||v==='tq'||v==='tres');
+  document.getElementById('tabs').classList.toggle('hide', solo);
+  document.getElementById('app').classList.toggle('nopad', solo);
   window.scrollTo(0,0);
   try{
     if(TG && TG.BackButton){
-      if(v==='home') TG.BackButton.hide(); else TG.BackButton.show();
+      if(v==='home'||v==='test'||v==='tq'||v==='tres') TG.BackButton.hide();
+      else TG.BackButton.show();
     }
   }catch(e){}
   if(v==='home') renderHome();
   if(v==='level') renderLevel(arg==null?lastLevel:arg);
   if(v==='ach') renderAch();
+  if(old){
+    var nv=document.getElementById('v-'+v);
+    nv.classList.remove('pgin'); void nv.offsetWidth; nv.classList.add('pgin');
+    flipStart(old,r);
+    haptic('soft');
+  }
 }
 function quitQuiz(){ haptic('light'); go('level', Q ? Q.li : lastLevel); }
 function back(){
+  if(view==='test'||view==='tq'||view==='tres') return;
   if(view==='quiz'){ go('level', lastLevel); return; }
   if(view==='level'||view==='res'||view==='ach'){ go('home'); return; }
   go('home');
@@ -508,18 +862,41 @@ function back(){
    ================================================================== */
 function wotdIndex(){
   var d=new Date(), days=Math.floor(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/86400000);
-  return ((days%TOTAL)+TOTAL)%TOTAL;
+  /* слово дня берём из уровня, который определил тест — не из всех 150 подряд */
+  return startLevel()*50 + (((days%50)+50)%50);
 }
+/* Куда вести пользователя одной кнопкой: первый незакрытый набор. */
+function nextPack(){
+  /* Идём от уровня, который показал тест, и только потом — к остальным.
+     Слова должны быть по силам: слишком лёгкие скучны, слишком трудные отпугивают. */
+  var st=startLevel(), order=[], k,i,j,lv;
+  for(i=st;i<LEVELS.length;i++) order.push(i);
+  for(i=0;i<st;i++) order.push(i);
+  for(k=0;k<order.length;k++){
+    i=order[k];
+    if(!levelOpen(i)) continue;
+    lv=LEVELS[i];
+    for(j=0;j<lv.packs.length;j++) if(packStars(lv.packs[j].id)<3) return {li:i,pi:j,rep:false};
+  }
+  return {li:st,pi:Math.floor(Math.random()*LEVELS[st].packs.length),rep:true};
+}
+function continueLearning(){ var n=nextPack(); startQuiz(n.li,n.pi); }
+
 function renderHome(){
-  var w=FLAT[wotdIndex()];
+  var w=FLAT[wotdIndex()], word=artHtml(w)+esc(w.de);
   document.getElementById('stk').textContent=S.s.n;
-  document.getElementById('hello').textContent = S.s.n>1 ? ('Вы здесь '+S.s.n+'-й день подряд') : 'Willkommen!';
+  document.getElementById('hello').textContent = S.s.n>1 ? (S.s.n+'-й день подряд') : 'Willkommen!';
   document.getElementById('wotd').innerHTML =
-    '<div class="lbl">Слово дня</div>'+
-    '<div class="de">'+artHtml(w)+esc(w.de)+'</div>'+
+    '<div class="lab">Слово дня</div>'+
+    '<div class="de'+fit(word)+'">'+word+'</div>'+
     '<div class="ru">'+esc(w.ru)+'</div>'+
+    '<div class="hr"></div>'+
     '<div class="ex">'+esc(w.ex)+'</div>'+
-    '<button class="btn ghost sm" style="margin-top:14px" onclick="shareWord()">↗ Поделиться</button>';
+    '<button class="share" onclick="shareWord()">'+ic('share')+'Поделиться</button>';
+
+  var n=nextPack(), pk=LEVELS[n.li].packs[n.pi];
+  document.getElementById('cta').innerHTML =
+    '<span>'+(n.rep?'Повторить':'Продолжить')+' · '+LEVELS[n.li].title+' · '+esc(pk.title)+'</span>'+ic('arr');
 
   document.getElementById('s-learn').textContent = learnedCount();
   document.getElementById('s-acc').textContent = (S.t.q ? Math.round(S.t.c/S.t.q*100) : 0)+'%';
@@ -527,16 +904,20 @@ function renderHome(){
 
   var h='';
   LEVELS.forEach(function(lv,li){
-    var open=levelOpen(li), pct=levelPct(li), off=119.4*(1-pct/100);
-    h += '<div class="card lvl d'+(li+1)+(open?'':' locked')+'" '+(open?'onclick="go(\'level\','+li+')"':'')+'>'+
-      '<div class="ringwrap"><svg class="ring" viewBox="0 0 44 44">'+
-        '<circle class="bgc" cx="22" cy="22" r="19"></circle>'+
-        '<circle class="fgc" cx="22" cy="22" r="19" stroke-dasharray="119.4" stroke-dashoffset="'+off+'"></circle>'+
-      '</svg><span>'+(open?pct+'%':'🔒')+'</span></div>'+
+    var open=levelOpen(li), pct=levelPct(li), done=0, i;
+    for(i=0;i<lv.packs.length;i++) if(packStars(lv.packs[i].id)>0) done++;
+    var mine = (li===startLevel() && S.tst===1);
+    var sb = !open ? ('откроется после '+LEVELS[li-1].title)
+                   : mine ? ('ваш уровень · '+done+' из 5 наборов')
+                          : (done+' из 5 наборов · 50 слов');
+    h += '<div class="card lvl d'+(li+1)+(open?'':' locked')+(mine?' mine':'')+'" '+(open?'onclick="go(\'level\','+li+')"':'')+'>'+
+      (open ? ringHtml(pct,false) : '<div class="mark">'+ic('lock')+'</div>')+
       '<div class="meta"><div class="nm">'+lv.title+' · '+esc(lv.subtitle)+'</div>'+
-      '<div class="sb">'+(open?('50 слов · 5 наборов'):('откроется после '+LEVELS[li-1].title))+'</div></div>'+
-      '<div class="chev">'+(open?'›':'')+'</div></div>';
+      '<div class="sb">'+sb+'</div></div>'+
+      (open?'<span class="i chev">'+ICO.chev+'</span>':'')+'</div>';
   });
+  h += '<button class="relvl" onclick="startTest(true)">'+
+       (S.tst===1 ? 'Пройти тест уровня заново' : 'Проверить свой уровень')+'</button>';
   document.getElementById('levels').innerHTML=h;
 
   document.getElementById('shop-slot').innerHTML = levelDone(1) ? shopCard() : '';
@@ -562,16 +943,16 @@ function renderLevel(li){
   lastLevel=li;
   var lv=LEVELS[li], pct=levelPct(li);
   document.getElementById('lv-name').textContent = lv.title+' · '+lv.subtitle;
-  document.getElementById('lv-sub').textContent = 'Уровень';
-  document.getElementById('lv-ring').setAttribute('stroke-dashoffset', 119.4*(1-pct/100));
+  document.getElementById('lv-ring').style.background =
+    'conic-gradient(#2b4a8b 0 '+pct+'%,#e6e8f0 0)';
   document.getElementById('lv-pct').textContent = pct+'%';
   var h='';
   lv.packs.forEach(function(pk,pi){
-    h += '<div class="pack" onclick="startQuiz('+li+','+pi+')">'+
-      '<div class="ic">'+pk.icon+'</div>'+
+    h += '<div class="pack" style="animation-delay:'+(pi*.04)+'s" onclick="startQuiz('+li+','+pi+')">'+
+      '<div class="ic">'+ic2(pk.icon)+'</div>'+
       '<div class="tt"><b>'+esc(pk.title)+'</b><span class="tiny">10 слов</span></div>'+
       starRow(packStars(pk.id))+
-      '<div class="chev dim">›</div></div>';
+      '<span class="i chev">'+ICO.chev+'</span></div>';
   });
   document.getElementById('packs').innerHTML=h;
 }
@@ -596,13 +977,44 @@ function buildQuestions(li,pi){
   });
   return qs;
 }
+/* Десять слов набора, к которому принадлежит слово. Варианты ответа берём
+   только отсюда: иначе рядом с «Bauch» встают «вокзал» и «радость» из других
+   тем — вопрос выглядит собранным наугад. */
+function packPool(w){ var a=w.li*50+w.pi*10; return FLAT.slice(a,a+10); }
+
+/* Ключ для сравнения вариантов: без регистра, без «ё», без ведущего артикля
+   и без возвратного «sich» — сравниваем сами слова. */
+function skey(t){
+  return String(t).toLowerCase().replace(/ё/g,'е').split(',')[0].trim()
+         .replace(/^(?:sich|der|die|das)\s+/,'');
+}
+/* Похожие слова нельзя ставить в один вопрос: «час» и «часы» (Stunde и Uhr)
+   оба выглядят правильными, и человек ошибается не потому, что не знает слова. */
+function tooClose(a,b){
+  a=skey(a); b=skey(b);
+  if(a===b) return true;
+  if(a.indexOf(b)===0 || b.indexOf(a)===0) return true;
+  return a.length>=4 && b.length>=4 && a.slice(0,4)===b.slice(0,4);
+}
+/* Два слова нельзя ставить в один вопрос, если похожи ЛИБО их русские переводы,
+   либо сами немецкие слова. Проверяем обе стороны сразу: в вопросе «Как будет
+   по-немецки? часы» вариант «die Stunde» (час) выглядит таким же правильным,
+   хотя на кнопках только немецкий. */
+function confusable(a,b){ return tooClose(a.ru,b.ru) || tooClose(a.de,b.de); }
 function others(pool,w,field,n){
-  var res=[], seen={}, cand=shuffle(pool.filter(function(x){return x.gi!==w.gi;})), i;
-  seen[w[field]]=1;
-  for(i=0;i<cand.length && res.length<n;i++){
-    if(!seen[cand[i][field]]){ seen[cand[i][field]]=1; res.push(cand[i][field]); }
+  var cand=shuffle(pool.filter(function(x){return x.gi!==w.gi;})), pick=[], out=[], i, j, bad;
+  for(i=0;i<cand.length && pick.length<n;i++){
+    bad=confusable(cand[i],w);
+    for(j=0;j<pick.length && !bad;j++) if(confusable(cand[i],pick[j])) bad=true;
+    if(!bad) pick.push(cand[i]);
   }
-  return res;
+  /* Если после отсева вариантов не хватило — добираем оставшимися:
+     четыре кнопки важнее идеальной чистоты. */
+  for(i=0;i<cand.length && pick.length<n;i++)
+    if(pick.indexOf(cand[i])<0) pick.push(cand[i]);
+  for(i=0;i<pick.length;i++)
+    if(out.indexOf(pick[i][field])<0) out.push(pick[i][field]);
+  return out;
 }
 function makeQ(kind,w,pool){
   var q={kind:kind,w:w};
@@ -614,8 +1026,10 @@ function makeQ(kind,w,pool){
   } else if(kind==='ru2de'){
     q.tag='Как будет по-немецки?';
     q.big=esc(w.ru);
-    q.right=w.de;
-    q.opts=shuffle(others(pool,w,'de',3).concat([w.de]));
+    /* Существительное показываем только с артиклем: артикль — часть слова,
+       и запоминаться должен вместе с ним, а не отдельным упражнением. */
+    q.right=w.lbl;
+    q.opts=shuffle(others(pool,w,'lbl',3).concat([w.lbl]));
   } else if(kind==='art'){
     q.tag='Какой артикль?';
     q.big=esc(w.de);
@@ -624,7 +1038,12 @@ function makeQ(kind,w,pool){
     q.opts=['der','die','das'];
     q.three=true;
   } else {
+    /* Раньше вопрос был без подсказки — и в пропуск «Das ______ ist alt.»
+       грамматически вставали сразу Haus, Zimmer, Bett и Fenster: верных ответов
+       получалось несколько. Теперь сверху стоит русское слово, и правильный
+       вариант ровно один. Артикль при этом виден в самом предложении. */
     q.tag='Вставьте слово';
+    q.big=esc(w.ru);
     q.mid=esc(w.ex.split(w.de).join('______'));
     q.right=w.de;
     q.opts=shuffle(others(pool,w,'de',3).concat([w.de]));
@@ -639,32 +1058,37 @@ function startQuiz(li,pi){
      каждый верный ответ повышает прогресс слова сразу, поэтому замер в конце
      раунда уже включал бы новые слова и прибавка всегда получалась нулевой. */
   Q={li:li, pi:pi, pk:LEVELS[li].packs[pi], qs:buildQuestions(li,pi),
-     i:0, correct:0, combo:0, best:0, t0:Date.now(), lock:false,
+     i:0, res:[], correct:0, combo:0, best:0, t0:Date.now(), lock:false,
      lb:learnedCount()};
   go('quiz');
   renderQ();
 }
 function renderQ(){
-  var q=Q.qs[Q.i];
+  var q=Q.qs[Q.i], i;
   Q.lock=false;
-  document.getElementById('q-bar').style.width = (Q.i/Q.qs.length*100)+'%';
+  document.getElementById('v-quiz').classList.remove('wrong');
   document.getElementById('q-num').textContent = (Q.i+1)+' / '+Q.qs.length;
   document.getElementById('q-combo').textContent = Q.combo>=3 ? ('серия ×'+Q.combo) : '';
   document.getElementById('q-hint').innerHTML='';
-  var a='<div class="tag">'+q.tag+'</div>';
-  if(q.big) a+='<div class="big">'+q.big+'</div>';
+  var a='<div class="qtext"><div class="tag">'+q.tag+'</div>';
+  if(q.big) a+='<div class="big'+fit(q.big)+'">'+q.big+'</div>';
   if(q.mid) a+='<div class="mid">'+q.mid+'</div>';
   if(q.sub) a+='<div class="sub">'+q.sub+'</div>';
-  document.getElementById('q-ask').innerHTML=a;
-  var h='<div class="'+(q.three?'opts3':'opts')+'">',i;
+  a+='</div><div class="qdots">';
+  for(i=0;i<Q.qs.length;i++) a+='<i class="'+(Q.res[i]||(i===Q.i?'now':''))+'"></i>';
+  document.getElementById('q-ask').innerHTML=a+'</div>';
+  var h='<div class="'+(q.three?'opts3':'opts')+'">';
   for(i=0;i<q.opts.length;i++)
-    h += '<button class="opt" data-v="'+esc(q.opts[i])+'" onclick="answer(this)">'+esc(q.opts[i])+'</button>';
+    h += '<button class="opt" data-v="'+esc(q.opts[i])+'" onclick="answer(this)">'+optHtml(q.opts[i])+'</button>';
   document.getElementById('q-opts').innerHTML = h+'</div>';
 }
 function answer(btn){
   if(Q.lock) return;
   Q.lock=true;
   var q=Q.qs[Q.i], val=btn.getAttribute('data-v'), ok=(val===q.right);
+  Q.res[Q.i] = ok?'ok':'no';
+  var dot=document.querySelectorAll('.qdots i')[Q.i];
+  if(dot) dot.className = Q.res[Q.i];
   var all=document.querySelectorAll('#q-opts .opt'), i;
   for(i=0;i<all.length;i++){
     var v=all[i].getAttribute('data-v');
@@ -686,14 +1110,29 @@ function answer(btn){
        Слово просто не продвигается и вернётся в следующем раунде. */
     haptic('no');
     document.getElementById('q-hint').innerHTML =
-      '<div class="hint"><b>'+(q.w.art?q.w.art+' ':'')+esc(q.w.de)+'</b> — '+esc(q.w.ru)+
-      '<br><span class="dim">'+esc(q.w.ex)+'</span></div>';
+      '<div class="hint"><span class="hl">Запомните</span>'+
+      '<b>'+artHtml(q.w)+esc(q.w.de)+'</b> — '+esc(q.w.ru)+
+      '<span class="ex">'+esc(q.w.ex)+'</span></div>';
   }
   save();
-  setTimeout(function(){
-    Q.i++;
-    if(Q.i>=Q.qs.length) finish(); else renderQ();
-  }, ok?520:1550);
+  if(ok){ setTimeout(nextQ, 520); return; }
+  /* Ошибка — самый ценный момент раунда: именно здесь слово и запоминается.
+     Поэтому дальше не уносит по таймеру — разбор висит, пока не нажмут «Дальше».
+     Кнопка оживает через 0,7 с, чтобы палец, ещё лежащий на варианте ответа,
+     случайно не пролистнул разбор. */
+  document.getElementById('v-quiz').classList.add('wrong');
+  Q.ready=false;
+  var nx=document.createElement('button');
+  nx.type='button';
+  nx.className='nxt';
+  nx.innerHTML='<span>Дальше</span>'+ic('arr');
+  nx.onclick=function(){ if(Q.ready){ haptic('light'); nextQ(); } };
+  document.getElementById('q-opts').appendChild(nx);
+  setTimeout(function(){ Q.ready=true; nx.classList.add('rdy'); }, 700);
+}
+function nextQ(){
+  Q.i++;
+  if(Q.i>=Q.qs.length) finish(); else renderQ();
 }
 function finish(){
   var stars = Q.correct>=10?3 : Q.correct>=8?2 : Q.correct>=6?1 : 0;
@@ -723,9 +1162,9 @@ function finish(){
   var titles = ['Ещё немного','Хорошо!','Отлично!','Идеально!'];
   var h='<div class="card res">'+
     '<div class="bigstars">'+
-      '<i class="'+(stars<1?'off':'')+'">★</i>'+
-      '<i class="'+(stars<2?'off':'')+'">★</i>'+
-      '<i class="'+(stars<3?'off':'')+'">★</i>'+
+      '<i class="'+(stars<1?'off':'')+'">'+STAR+'</i>'+
+      '<i class="'+(stars<2?'off':'')+'">'+STAR+'</i>'+
+      '<i class="'+(stars<3?'off':'')+'">'+STAR+'</i>'+
     '</div>'+
     '<h2>'+titles[stars]+'</h2>'+
     '<div class="score">'+Q.correct+' из '+Q.qs.length+' · '+secs+' сек'+
@@ -739,19 +1178,178 @@ function finish(){
 
   got.forEach(function(id){
     var a=achById(id); if(!a) return;
-    h += '<div class="newach"><div class="e">'+a.e+'</div><div><b>Новая награда: '+a.t+'</b>'+
+    h += '<div class="card newach"><div class="e">'+ic2(a.e,a.c)+'</div><div><b>Новая награда: '+a.t+'</b>'+
          '<span class="tiny">'+a.d+'</span></div></div>';
   });
 
   if(justFinishedLevel && Q.li===1) h += shopCard();
 
-  h += '<div style="display:flex;gap:9px;margin-top:16px">'+
+  h += '<div class="res-act">'+
        '<button class="btn ghost" onclick="go(\'level\','+Q.li+')">К наборам</button>'+
        '<button class="btn" onclick="startQuiz('+Q.li+','+Q.pi+')">Ещё раз</button></div>';
 
   document.getElementById('v-res').innerHTML=h;
   go('res');
   if(stars===3 || got.length){ confetti(); haptic('win'); }
+}
+
+/* ==================================================================
+   10Б. ТЕСТ УРОВНЯ
+   Три блока по пять слов: A1 -> A2 -> B1. Блок пройден (3 верных из 5) —
+   ведём дальше, не пройден — останавливаемся. Новичок отвечает всего
+   на 5 вопросов и сразу идёт учиться, продвинутый доходит до B1.
+   ================================================================== */
+var T = null;
+var TPART = ['Часть 1 · простые слова','Часть 2 · средний уровень','Часть 3 · сложные слова'];
+
+/* Пять слов уровня — по одному из каждого набора, чтобы блок покрывал все темы. */
+function testWords(li){
+  var out=[], j;
+  for(j=0;j<LEVELS[li].packs.length;j++) out.push(FLAT[li*50+j*10+Math.floor(Math.random()*10)]);
+  return shuffle(out);
+}
+function testBlock(li){
+  var ws=testWords(li), qs=[], k, kind;
+  for(k=0;k<ws.length;k++){
+    kind = (k===2 && ws[k].art) ? 'art' : (k%2 ? 'ru2de' : 'de2ru');
+    qs.push(makeQ(kind, ws[k], packPool(ws[k])));
+  }
+  return qs;
+}
+
+function startTest(again){
+  haptic('light');
+  T={b:0, i:0, qs:[], res:[], sc:[0,0,0], lock:false, again:!!again};
+  document.getElementById('v-test').innerHTML =
+    '<div class="card tcard">'+
+      '<div class="lab">Тест уровня</div>'+
+      '<h2>Насколько хорошо вы знаете немецкий?</h2>'+
+      '<p>Три коротких блока по пять слов — от простых к сложным. Тест закончится раньше, '+
+      'если станет трудно: дальше вас не поведут.</p>'+
+      '<p class="tw">По результату приложение откроет ваш уровень и дальше будет подбирать '+
+      'слова именно под него.</p>'+
+    '</div>'+
+    '<div class="card tplan">'+ planRows() +
+      '<div class="tnote">Ответы никуда не отправляются: результат хранится только в вашем Telegram.</div>'+
+    '</div>'+
+    '<div class="tact">'+
+      '<button class="btn" onclick="testBegin()"><span>Начать тест</span>'+ic('arr')+'</button>'+
+      '<button class="btn ghost" onclick="testSkip()">Я начинаю с нуля</button>'+
+    '</div>';
+  go('test');
+}
+/* Содержание теста: три строчки, как оглавление в тетради. */
+function planRows(){
+  var d=['простые слова','средний уровень','сложные слова'], h='', i;
+  for(i=0;i<3;i++)
+    h += '<div class="tp" style="animation-delay:'+(70+i*80)+'ms"><i>'+(i+1)+'</i>'+
+         '<b>'+LEVELS[i].title+'</b><span>'+d[i]+'</span><em>5 слов</em></div>';
+  return h;
+}
+/* Лестница уровней после теста: что открылось, что учим, что впереди. */
+function ladderRows(li){
+  var h='', i, lv, st, em;
+  for(i=0;i<LEVELS.length;i++){
+    lv=LEVELS[i];
+    st = i<li ? 'done' : (i===li ? 'now' : 'off');
+    em = i<li ? 'для повторения' : (i===li ? 'ваш уровень' : 'откроется дальше');
+    h += '<div class="tp '+st+'" style="animation-delay:'+(220+i*90)+'ms">'+
+         '<i>'+(st==='done'?ic('check'):(st==='off'?ic('lock'):(i+1)))+'</i>'+
+         '<b>'+lv.title+'</b><span>'+esc(lv.subtitle)+'</span><em>'+em+'</em></div>';
+  }
+  return h;
+}
+function testSkip(){
+  haptic('light');
+  S.lv=0; S.tst=2; save();
+  go('home');
+}
+/* Закрыли тест на полпути — не держим: считаем, что человек начинает с нуля. */
+function testQuit(){
+  haptic('light');
+  if(S.tst===0){ S.lv=0; S.tst=2; save(); }
+  go('home');
+}
+function testBegin(){ T.b=0; T.sc=[0,0,0]; testLoad(); }
+function testLoad(){
+  T.qs=testBlock(T.b); T.i=0; T.res=[]; T.lock=false;
+  renderT();
+  go('tq');
+}
+function renderT(){
+  var q=T.qs[T.i], i;
+  T.lock=false;
+  document.getElementById('tq-part').textContent = TPART[T.b];
+  document.getElementById('tq-num').textContent = (T.i+1)+' / '+T.qs.length;
+  var a='<div class="qtext"><div class="tag">'+q.tag+'</div>';
+  if(q.big) a+='<div class="big'+fit(q.big)+'">'+q.big+'</div>';
+  if(q.mid) a+='<div class="mid">'+q.mid+'</div>';
+  if(q.sub) a+='<div class="sub">'+q.sub+'</div>';
+  a+='</div><div class="qdots">';
+  for(i=0;i<T.qs.length;i++) a+='<i class="'+(T.res[i]||(i===T.i?'now':''))+'"></i>';
+  document.getElementById('tq-ask').innerHTML=a+'</div>';
+  var h='<div class="'+(q.three?'opts3':'opts')+'">';
+  for(i=0;i<q.opts.length;i++)
+    h += '<button class="opt" data-v="'+esc(q.opts[i])+'" onclick="tanswer(this)">'+optHtml(q.opts[i])+'</button>';
+  document.getElementById('tq-opts').innerHTML = h+'</div>';
+}
+function tanswer(btn){
+  if(T.lock) return;
+  T.lock=true;
+  var q=T.qs[T.i], ok=(btn.getAttribute('data-v')===q.right);
+  /* В тесте намеренно не показываем «верно/неверно»: это замер, а не урок.
+     Пять красных пометок подряд в первую минуту знакомства — прямой путь к удалению. */
+  btn.classList.add('sel');
+  T.res[T.i]='done';
+  var dot=document.querySelectorAll('#v-tq .qdots i')[T.i];
+  if(dot) dot.className='done';
+  if(ok){
+    T.sc[T.b]++;
+    /* верный ответ засчитываем слову как первый шаг — тест не проходит впустую */
+    if(mGet(q.w.gi)<1) mSet(q.w.gi,1);
+  }
+  haptic('light');
+  setTimeout(function(){
+    T.i++;
+    if(T.i<T.qs.length){ renderT(); return; }
+    if(T.sc[T.b]>=3 && T.b<2){ T.b++; testLoad(); return; }
+    testFinish();
+  }, 280);
+}
+function testLevel(){
+  if(T.sc[0]<3) return 0;
+  if(T.sc[1]<3) return 1;
+  return 2;
+}
+function testFinish(){
+  var li=testLevel();
+  S.lv=li; S.tst=1;
+  save();
+  var lv=LEVELS[li], asked=(T.b+1)*5, tot=T.sc[0]+T.sc[1]+T.sc[2], txt;
+  if(li===0)
+    txt='Начнём с основы: люди, дом, еда, время и первые глаголы. Это фундамент, на котором держится всё остальное — с ним дальше пойдёт легко.';
+  else if(li===1)
+    txt='Базовые слова вы уже знаете, поэтому A1 открыт просто для повторения. Учить будем A2: город, работа, здоровье, чувства.';
+  else
+    txt = (T.sc[2]>=4)
+      ? 'Вы уверенно держитесь на B1. A1 и A2 открыты для повторения, а учить будем сложное: общество, карьеру, оттенки мысли.'
+      : 'A1 и A2 вам уже по силам — они открыты для повторения. Пора за B1: общество, карьера, оттенки мысли.';
+  var n=nextPack(), pk=LEVELS[n.li].packs[n.pi];
+  document.getElementById('v-tres').innerHTML =
+    '<div class="card tcard tres">'+
+      '<div class="lab">Ваш уровень</div>'+
+      '<div class="lvbig">'+lv.title+'</div>'+
+      '<div class="lvsub">'+esc(lv.subtitle)+'</div>'+
+      '<div class="score">'+tot+' из '+asked+' верных ответов</div>'+
+      '<p>'+txt+'</p>'+
+    '</div>'+
+    '<div class="card tplan">'+ ladderRows(li) +'</div>'+
+    '<div class="tact2">'+
+      '<button class="btn" onclick="startQuiz('+n.li+','+n.pi+')"><span>Начать · '+esc(pk.title)+'</span>'+ic('arr')+'</button>'+
+      '<button class="btn ghost" onclick="go(\'home\')">Сначала осмотрюсь</button>'+
+    '</div>';
+  go('tres');
+  confetti(); haptic('win');
 }
 
 /* ==================================================================
@@ -762,7 +1360,7 @@ function renderAch(){
   var h='';
   ACH.forEach(function(a){
     var on=has(a.id);
-    h += '<div class="ach '+(on?'on':'lock')+'"><span class="e">'+a.e+'</span>'+
+    h += '<div class="ach '+(on?'on':'lock')+'"><span class="e">'+ic2(a.e,on?a.c:'')+'</span>'+
          '<b>'+a.t+'</b><p>'+a.d+'</p></div>';
   });
   document.getElementById('ach-grid').innerHTML=h;
@@ -773,7 +1371,7 @@ function renderAch(){
    ================================================================== */
 function confetti(){
   var box=document.getElementById('conf');
-  var cols=['#f4c95d','#8b6cff','#35d6a4','#ff7aa8','#6ea8ff'], i, d;
+  var cols=['#2b4a8b','#d6453c','#d99a1f','#2e8b6b','#b0398a'], i, d;
   for(i=0;i<34;i++){
     d=document.createElement('i');
     d.style.left=(Math.random()*100)+'%';
@@ -789,11 +1387,12 @@ function confetti(){
    13. СТАРТ
    ================================================================== */
 (function init(){
+  paintIcons();
   try{
     if(TG){
       TG.ready();
       TG.expand();
-      if(tgv('6.9')){ TG.setHeaderColor('#0a0b12'); TG.setBackgroundColor('#0a0b12'); }
+      if(tgv('6.9')){ TG.setHeaderColor('#faf8f4'); TG.setBackgroundColor('#faf8f4'); }
       if(tgv('7.7') && TG.disableVerticalSwipes) TG.disableVerticalSwipes();
       if(TG.BackButton) TG.BackButton.onClick(back);
     }
@@ -806,7 +1405,10 @@ function confetti(){
     touchStreak();
     checkAch({});
     save();
-    go('home');
+    /* Первый запуск: сначала определяем уровень, чтобы слова сразу были по силам.
+       view='' — чтобы стартовый экран не «перелистнулся» с ещё пустой главной. */
+    if(S.tst===0){ view=''; startTest(false); }
+    else go('home');
   });
 })();
 </script>
